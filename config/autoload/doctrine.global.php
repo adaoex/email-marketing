@@ -19,15 +19,15 @@ return [
         ],
         'driver' => [
             'EmailMarketing_driver' => [
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'class' => 'Doctrine\ORM\Mapping\Driver\YamlDriver',
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ . '/../../src/EmailMarketing/Entity'
+                    __DIR__ . '/../../src/EmailMarketing/Infrastructure/Persistence/Doctrine/ORM'
                 ]
             ],
             'orm_default' => [
                 'drivers' => [
-                    'EmailMarketing\Entity' => 'EmailMarketing_driver'
+                    'EmailMarketing\Domain\Entity' => 'EmailMarketing_driver'
                 ]
             ]
         ]

@@ -1,41 +1,20 @@
 <?php
 
-namespace EmailMarketing\Entity;
+namespace EmailMarketing\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table("clientes")
- */
 class Cliente
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
+    
     private $id;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $nome;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $email;
 
-    /**
-     * @ORM\Column(type="string")
-     */
     private $cpf;
     
-    /**
-    * @ORM\OneToMany(targetEntity="Endereco", mappedBy="cliente", cascade={"persist", "remove"})
-    */
     private $enderecos;
 
     public function __construct()

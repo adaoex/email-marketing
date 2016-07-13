@@ -1,45 +1,19 @@
 <?php
-namespace EmailMarketing\Entity;
+namespace EmailMarketing\Domain\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity
- * @ORM\Table("enderecos")
- */
 class Endereco
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
+    
     private $id;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $cep;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $logradouro;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $cidade;
     
-    /**
-     * @ORM\Column(type="string")
-     */
     private $estado;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="enderecos")
-     * @ORM\JoinColumn(name="cliente_id", referencedColumnName="id")
-     */
     private $cliente;
     
     public function getId()

@@ -1,12 +1,12 @@
 <?php
 
-namespace EmailMarketing\Action;
+namespace EmailMarketing\Application\Middleware;
 
-use EmailMarketing\Service\BootstrapInterface;
+use EmailMarketing\Domain\Service\BootstrapInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class BootstrapAction
+class BootstrapMiddleware
 {
     private $bootstrapInterface;
     

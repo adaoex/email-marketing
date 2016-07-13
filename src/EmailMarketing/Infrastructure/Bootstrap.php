@@ -2,7 +2,7 @@
 
 namespace EmailMarketing\Infrastructure;
 
-use EmailMarketing\Service\BootstrapInterface;
+use EmailMarketing\Domain\Service\BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
 {

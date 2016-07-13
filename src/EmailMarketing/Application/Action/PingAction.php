@@ -1,6 +1,6 @@
 <?php
 
-namespace EmailMarketing\Action;
+namespace EmailMarketing\Application\Action;
 
 use Zend\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -8,8 +8,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class PingAction
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
-    {
+    public function __invoke(
+            ServerRequestInterface $request, 
+            ResponseInterface $response, 
+            callable $next = null
+    ) {
         return new JsonResponse(['ack' => time()]);
     }
 }

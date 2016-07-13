@@ -1,6 +1,6 @@
 <?php
 
-namespace EmailMarketing\Service;
+namespace EmailMarketing\Domain\Service;
 
 interface BootstrapInterface
 {

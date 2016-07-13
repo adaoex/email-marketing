@@ -1,10 +1,10 @@
 <?php
 
-namespace EmailMarketing\Action;
+namespace EmailMarketing\Application\Action;
 
-use Doctrine\ORM\EntityManager;
-use EmailMarketing\Entity\Cliente;
-use EmailMarketing\Entity\Endereco;
+use EmailMarketing\Domain\Entity\Cliente;
+use EmailMarketing\Domain\Entity\Endereco;
+use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -14,15 +14,15 @@ class TestePageAction
 {
 
     private $template;
-
-    private $entityManager;
+    
+    private $repository;
 
     public function __construct(
-            EntityManager $entityManager,
+            ClienteRepositoryInterface $repository,
             Template\TemplateRendererInterface $template = null
     ) {
         $this->template = $template;
-        $this->entityManager = $entityManager;
+        $this->repository = $repository;
     }
 
     public function __invoke(
@@ -52,9 +52,9 @@ class TestePageAction
         $endereco1->setCliente($cliente);
         $endereco2->setCliente($cliente);
         
-        $this->entityManager->persist($cliente);
-        $this->entityManager->persist($endereco1);
-        $this->entityManager->persist($endereco2);
+        $this->repository->create($cliente);
+        #$this->repository->create($endereco1);
+        #$this->repository->create($endereco2);
         
         
         $endereco3 = new Endereco();
@@ -78,13 +78,11 @@ class TestePageAction
         $endereco3->setCliente($cliente2);
         $endereco4->setCliente($cliente2);
         
-        $this->entityManager->persist($cliente2);
-        $this->entityManager->persist($endereco3);
-        $this->entityManager->persist($endereco4);
+        $this->repository->create($cliente2);
+        #$this->repository->create($endereco3);
+        #$this->repository->create($endereco4);
         
-        $this->entityManager->flush();
-
-        $clientes = $this->entityManager->getRepository(Cliente::class)->findBy([], ['nome'=>'DESC']);
+        $clientes = $this->repository->findAll();
 
         return new HtmlResponse(
             $this->template->render('app::teste', [

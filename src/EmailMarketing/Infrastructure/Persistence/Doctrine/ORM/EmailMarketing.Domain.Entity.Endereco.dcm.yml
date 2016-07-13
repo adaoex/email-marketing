@@ -1,0 +1,35 @@
+## EmailMarketing.Domain.Entity.Endereco.dcm.yml
+EmailMarketing\Domain\Entity\Endereco:
+    type: entity
+    repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\EnderecoRepository
+    table: enderecos
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields: 
+        cep:
+            type: string
+            length: 255
+        logradouro:
+            type: string
+            length: 255
+        cidade:
+            type: string
+            length: 255
+            nullable: false
+        estado:
+            type: string
+            length: 25
+            nullable: false
+    manyToOne:
+        cliente:
+            targetEntity: Cliente
+            inversedBy: enderecos
+            joinColumn:
+                name: cliente_id
+                referencedColumnName: id
+                onDelete: CASCADE
+
+            

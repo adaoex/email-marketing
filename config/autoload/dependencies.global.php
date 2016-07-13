@@ -1,4 +1,7 @@
 <?php
+
+use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -19,6 +22,7 @@ return [
         'factories' => [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
+            ClienteRepositoryInterface::class => ClienteRepositoryFactory::class,
         ],
         'aliases' => [
             'configuration' => 'config', //Doctrine needs a service called Configuration

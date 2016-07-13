@@ -1,0 +1,27 @@
+## EmailMarketing.Domain.Entity.Cliente.dcm.yml
+EmailMarketing\Domain\Entity\Cliente:
+    type: entity
+    repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepository
+    table: clientes
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields: 
+        nome:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        cpf:
+            type: string
+            length: 15
+            nullable: true
+    oneToMany:
+        enderecos:
+            targetEntity: Endereco
+            mappedBy: cliente
+            cascade: ["persist", "delete"]
+            
