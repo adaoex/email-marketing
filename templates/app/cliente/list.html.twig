@@ -1,0 +1,57 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}
+    Lista de Clientes - {{ parent() }}
+{% endblock %}
+
+{% block page_header %}
+    Listagem de Clientes
+{% endblock %}
+
+{% block content %}
+    <div class="row" >
+        <div class="box" >
+            <div class="box-header" >
+                <a class="btn btn-app" href="{{ url('cliente.create') }}" >
+                    <i class="fa fa-plus-cicle" ></i>
+                    Novo
+                </a>
+            </div>
+            <div class="box-body" >
+                <table class="table table-bordered" >
+                    <thead>
+                        <tr>
+                            <th style="width: 10px;" >ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>E-mail</th>
+                            <th>Endereços</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.id }}</td>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.cpf }}</td>
+                            <td>{{ cliente.email }}</td>
+                            <td>
+                                <dl class="dl-horizontal" >
+                                    {% for endereco in cliente.enderecos %}
+                                        <dt>Endereço {{loop.index}}</dt>
+                                        <dd>
+                                            {{ endereco.logradouro }}, 
+                                            {{ endereco.cidade }}-{{ endereco.estado }}, 
+                                            CEP: {{ endereco.cep }}
+                                        </dd>
+                                    {% endfor %}
+                                </dl>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

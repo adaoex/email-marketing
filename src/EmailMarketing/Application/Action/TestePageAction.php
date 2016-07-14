@@ -53,9 +53,6 @@ class TestePageAction
         $endereco2->setCliente($cliente);
         
         $this->repository->create($cliente);
-        #$this->repository->create($endereco1);
-        #$this->repository->create($endereco2);
-        
         
         $endereco3 = new Endereco();
         $endereco3->setLogradouro("Logradouro, endereço 10")
@@ -79,8 +76,6 @@ class TestePageAction
         $endereco4->setCliente($cliente2);
         
         $this->repository->create($cliente2);
-        #$this->repository->create($endereco3);
-        #$this->repository->create($endereco4);
         
         $clientes = $this->repository->findAll();
 

@@ -3,24 +3,33 @@
 namespace EmailMarketing\Application\Middleware;
 
 use EmailMarketing\Domain\Service\BootstrapInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class BootstrapMiddleware
 {
-    private $bootstrapInterface;
+
+    private $bootstrap;
     
-    public function __construct(BootstrapInterface $bootstrapInterface )
-    {
-        $this->bootstrapInterface = $bootstrapInterface;
+    private $flashMessage;
+
+    public function __construct(
+            BootstrapInterface $bootstrapInterface, 
+            FlashMessageInterface $flashMessage
+    ) {
+        $this->bootstrap = $bootstrapInterface;
+        $this->flashMessage = $flashMessage;
     }
-    
-    public function __invoke( 
+
+    public function __invoke(
             ServerRequestInterface $request, 
             ResponseInterface $response, 
-            callable $next = null 
+            callable $next = null
     ) {
-        $this->bootstrapInterface->create();
+        $this->bootstrap->create();
+        $request = $request->withAttribute('flash', $this->flashMessage);
         return $next($request, $response);
     }
+
 }

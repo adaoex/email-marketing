@@ -1,14 +1,28 @@
 <?php
 
+use EmailMarketing\Application\Action\Cliente\ClienteCreatePageAction;
+use EmailMarketing\Application\Action\Cliente\Factory\ClienteCreatePageFactory;
+use EmailMarketing\Application\Action\Cliente\ClienteListPageAction;
+use EmailMarketing\Application\Action\Cliente\Factory\ClienteListPageFactory;
+use EmailMarketing\Application\Action\HomePageAction;
+use EmailMarketing\Application\Action\HomePageFactory;
+use EmailMarketing\Application\Action\PingAction;
+use EmailMarketing\Application\Action\TestePageAction;
+use EmailMarketing\Application\Action\TestePageFactory;
+use Zend\Expressive\Router\AuraRouter;
+use Zend\Expressive\Router\RouterInterface;
+
 return [
     'dependencies' => [
         'invokables' => [
-            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class,
-            EmailMarketing\Application\Action\PingAction::class => EmailMarketing\Application\Action\PingAction::class,
+            RouterInterface::class => AuraRouter::class,
+            PingAction::class => PingAction::class,
         ],
         'factories' => [
-            EmailMarketing\Application\Action\HomePageAction::class => EmailMarketing\Application\Action\HomePageFactory::class,
-            EmailMarketing\Application\Action\TestePageAction::class => EmailMarketing\Application\Action\TestePageFactory::class,
+            HomePageAction::class => HomePageFactory::class,
+            TestePageAction::class => TestePageFactory::class,
+            ClienteListPageAction::class => ClienteListPageFactory::class,
+            ClienteCreatePageAction::class => ClienteCreatePageFactory::class,
         ],
     ],
 
@@ -16,20 +30,32 @@ return [
         [
             'name' => 'home',
             'path' => '/',
-            'middleware' => EmailMarketing\Application\Action\HomePageAction::class,
+            'middleware' => HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'api.ping',
             'path' => '/api/ping',
-            'middleware' => EmailMarketing\Application\Action\PingAction::class,
+            'middleware' => PingAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'teste',
             'path' => '/teste',
-            'middleware' => EmailMarketing\Application\Action\TestePageAction::class,
+            'middleware' => TestePageAction::class,
             'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'cliente.list',
+            'path' => '/admin/clientes',
+            'middleware' => ClienteListPageAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'cliente.create',
+            'path' => '/admin/cliente/create',
+            'middleware' => ClienteCreatePageAction::class,
+            'allowed_methods' => ['GET','POST'],
         ],
     ],
 ];

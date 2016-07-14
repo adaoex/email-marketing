@@ -23,5 +23,5 @@ EmailMarketing\Domain\Entity\Cliente:
         enderecos:
             targetEntity: Endereco
             mappedBy: cliente
-            cascade: ["persist", "delete"]
+            cascade: ["persist", "merge"]
             
