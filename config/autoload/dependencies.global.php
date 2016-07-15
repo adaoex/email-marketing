@@ -2,12 +2,12 @@
 
 use Aura\Session\Session;
 use DaMess\Factory\AuraSessionFactory;
-use DaMess\Factory\SessionMiddlewareFactory;
-use DaMess\Http\SessionMiddleware;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
 use EmailMarketing\Domain\Service\FlashMessageInterface;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepositoryFactory;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\EnderecoRepositoryFactory;
 use EmailMarketing\Infrastructure\Service\FlashMessageFactory;
 use Zend\Expressive\Application;
@@ -32,7 +32,7 @@ return [
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
             ClienteRepositoryInterface::class => ClienteRepositoryFactory::class,
             EnderecoRepositoryInterface::class => EnderecoRepositoryFactory::class,
-            SessionMiddleware::class => SessionMiddlewareFactory::class,
+            ContatoRepositoryInterface::class => ContatoRepositoryFactory::class,
             Session::class => AuraSessionFactory::class,
             FlashMessageInterface::class => FlashMessageFactory::class,
         ],

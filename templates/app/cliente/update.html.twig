@@ -1,0 +1,158 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}
+    Edição de Cliente - {{ parent() }}
+{% endblock %}
+
+{% block page_header %}
+    Edição de Cliente {{ cliente.nome }}
+{% endblock %}
+
+{% block content %}
+    <div class="row" >
+        <div class="col-md-8">
+            <div class="box box-primary" >
+                <div class="box-body" >
+                    <form name="form" role="form" method="post" action="{{ url('cliente.update', {id: cliente.id}) }}" >
+                        <div class="box-body" >
+                            <div class="form-group">
+                                <label for="nome">Nome: </label>
+                                <input type="text" name="nome" value="{{ cliente.nome }}" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf">CPF: </label>
+                                <input type="text" name="cpf" value="{{ cliente.cpf }}" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail: </label>
+                                <input type="email" name="email" value="{{ cliente.email }}" class="form-control" />
+                            </div>
+                        </div>
+                        
+                        {% for endereco in cliente.enderecos %}
+                            <div class="box-header" >
+                                <h4>Endereço {{loop.index}}</h4>
+                            </div>
+                            <input type="hidden" name="endereco_id[]" value="{{ endereco.id }}" />
+                            <div class="box-body" >
+                                <div class="form-group">
+                                    <label for="logradouro">Logradouro: </label>
+                                    <input type="text" name="logradouro[]" value="{{ endereco.logradouro }}" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="box-body" >
+                                <div class="form-group">
+                                    <label for="cidade">Cidade: </label>
+                                    <input type="text" name="cidade[]" value="{{ endereco.cidade }}" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="box-body" >
+                                <div class="form-group">
+                                    <label for="estado">Estado: </label>
+                                    <select name="estado[]" class="form-control" >
+                                        <option value="AC" {% if endereco.estado == 'AC' %}selected="selected"{% endif %} >Acre</option>
+                                        <option value="AL" {% if endereco.estado == 'AL' %}selected="selected"{% endif %} >Alagoas</option>
+                                        <option value="AP" {% if endereco.estado == 'AP' %}selected="selected"{% endif %} >Amapá</option>
+                                        <option value="AM" {% if endereco.estado == 'AM' %}selected="selected"{% endif %} >Amazonas</option>
+                                        <option value="BA" {% if endereco.estado == 'BA' %}selected="selected"{% endif %} >Bahia</option>
+                                        <option value="CE" {% if endereco.estado == 'CE' %}selected="selected"{% endif %} >Ceará</option>
+                                        <option value="DF" {% if endereco.estado == 'DF' %}selected="selected"{% endif %} >Distrito Federal</option>
+                                        <option value="ES" {% if endereco.estado == 'ES' %}selected="selected"{% endif %} >Espírito Santo</option>
+                                        <option value="GO" {% if endereco.estado == 'GO' %}selected="selected"{% endif %} >Goiás</option>
+                                        <option value="MA" {% if endereco.estado == 'MA' %}selected="selected"{% endif %} >Maranhão</option>
+                                        <option value="MT" {% if endereco.estado == 'MT' %}selected="selected"{% endif %} >Mato Grosso</option>
+                                        <option value="MS" {% if endereco.estado == 'MS' %}selected="selected"{% endif %} >Mato Grosso do Sul</option>
+                                        <option value="MG" {% if endereco.estado == 'MG' %}selected="selected"{% endif %} >Minas Gerais</option>
+                                        <option value="PA" {% if endereco.estado == 'PA' %}selected="selected"{% endif %} >Pará</option>
+                                        <option value="PB" {% if endereco.estado == 'PB' %}selected="selected"{% endif %} >Paraíba</option>
+                                        <option value="PR" {% if endereco.estado == 'PR' %}selected="selected"{% endif %} >Paraná</option>
+                                        <option value="PE" {% if endereco.estado == 'PE' %}selected="selected"{% endif %} >Pernambuco</option>
+                                        <option value="PI" {% if endereco.estado == 'PI' %}selected="selected"{% endif %} >Piauí</option>
+                                        <option value="RJ" {% if endereco.estado == 'RJ' %}selected="selected"{% endif %} >Rio de Janeiro</option>
+                                        <option value="RN" {% if endereco.estado == 'RN' %}selected="selected"{% endif %} >Rio Grande do Norte</option>
+                                        <option value="RS" {% if endereco.estado == 'RS' %}selected="selected"{% endif %} >Rio Grande do Sul</option>
+                                        <option value="RO" {% if endereco.estado == 'RO' %}selected="selected"{% endif %} >Rondônia</option>
+                                        <option value="RR" {% if endereco.estado == 'RR' %}selected="selected"{% endif %} >Roraima</option>
+                                        <option value="SC" {% if endereco.estado == 'SC' %}selected="selected"{% endif %} >Santa Catarina</option>
+                                        <option value="SP" {% if endereco.estado == 'SP' %}selected="selected"{% endif %} >São Paulo</option>
+                                        <option value="SE" {% if endereco.estado == 'SE' %}selected="selected"{% endif %} >Sergipe</option>
+                                        <option value="TO" {% if endereco.estado == 'TO' %}selected="selected"{% endif %} >Tocantins</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-body" >
+                                <div class="form-group">
+                                    <label for="cep">CEP: </label>
+                                    <input type="text" name="cep[]" value="{{ endereco.cep }}" class="form-control" />
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="box-header" >
+                            <h4>Novo Endereço</h4>
+                        </div>
+                        <div class="box-body" >
+                            <div class="form-group">
+                                <label for="logradouro">Logradouro: </label>
+                                <input type="text" name="logradouro[]" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="box-body" >
+                            <div class="form-group">
+                                <label for="cidade">Cidade: </label>
+                                <input type="text" name="cidade[]" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="box-body" >
+                            <div class="form-group">
+                                <label for="estado">Estado: </label>
+                                <select name="estado[]" class="form-control" >
+                                    <option value="AC" >Acre</option>
+                                    <option value="AL" >Alagoas</option>
+                                    <option value="AP" >Amapá</option>
+                                    <option value="AM" >Amazonas</option>
+                                    <option value="BA" >Bahia</option>
+                                    <option value="CE" >Ceará</option>
+                                    <option value="DF" >Distrito Federal</option>
+                                    <option value="ES" >Espírito Santo</option>
+                                    <option value="GO" >Goiás</option>
+                                    <option value="MA" >Maranhão</option>
+                                    <option value="MT" >Mato Grosso</option>
+                                    <option value="MS" >Mato Grosso do Sul</option>
+                                    <option value="MG" >Minas Gerais</option>
+                                    <option value="PA" >Pará</option>
+                                    <option value="PB" >Paraíba</option>
+                                    <option value="PR" >Paraná</option>
+                                    <option value="PE" >Pernambuco</option>
+                                    <option value="PI" >Piauí</option>
+                                    <option value="RJ" >Rio de Janeiro</option>
+                                    <option value="RN" >Rio Grande do Norte</option>
+                                    <option value="RS" >Rio Grande do Sul</option>
+                                    <option value="RO" >Rondônia</option>
+                                    <option value="RR" >Roraima</option>
+                                    <option value="SC" >Santa Catarina</option>
+                                    <option value="SP" >São Paulo</option>
+                                    <option value="SE" >Sergipe</option>
+                                    <option value="TO" >Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="box-body" >
+                            <div class="form-group">
+                                <label for="cep">CEP: </label>
+                                <input type="text" name="cep[]" class="form-control" />
+                            </div>
+                        </div>
+                        
+                        <div class="box-footer" >
+                            <button class="btn btn-primary" type="submit" >
+                                <i class="glyphicon glyphicon-floppy-save" ></i>
+                                Editar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

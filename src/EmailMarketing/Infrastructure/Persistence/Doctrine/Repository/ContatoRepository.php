@@ -4,9 +4,9 @@ namespace EmailMarketing\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
-use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 
-class ClienteRepository extends EntityRepository implements ClienteRepositoryInterface
+class ContatoRepository extends EntityRepository implements ContatoRepositoryInterface
 {
 
     public function create($entity)

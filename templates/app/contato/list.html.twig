@@ -12,7 +12,7 @@
     <div class="row" >
         <div class="box" >
             <div class="box-header" >
-                <a class="btn btn-app" href="{{ url('cliente.create') }}" >
+                <a class="btn btn-app" href="{{ url('contato.create') }}" >
                     <i class="fa fa-plus" ></i>
                     Novo
                 </a>
@@ -23,38 +23,23 @@
                         <tr>
                             <th style="width: 10px;" >ID</th>
                             <th>Nome</th>
-                            <th>CPF</th>
                             <th>E-mail</th>
-                            <th>Endereços</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for cliente in clientes %}
+                    {% for contato in contatos %}
                         <tr>
-                            <td>{{ cliente.id }}</td>
-                            <td>{{ cliente.nome }}</td>
-                            <td>{{ cliente.cpf }}</td>
-                            <td>{{ cliente.email }}</td>
+                            <td>{{ contato.id }}</td>
+                            <td>{{ contato.nome }}</td>
+                            <td>{{ contato.email }}</td>
                             <td>
-                                <dl class="dl-horizontal" >
-                                    {% for endereco in cliente.enderecos %}
-                                        <dt>Endereço {{loop.index}}</dt>
-                                        <dd>
-                                            {{ endereco.logradouro }}, 
-                                            {{ endereco.cidade }}-{{ endereco.estado }}, 
-                                            CEP: {{ endereco.cep }}
-                                        </dd>
-                                    {% endfor %}
-                                </dl>
-                            </td>
-                            <td>
-                                <a href="{{ url('cliente.update', {id: cliente.id}) }}" 
+                                <a href="{{ url('contato.update', {id: contato.id}) }}" 
                                    class="btn btn-default">
                                     <i class="fa fa-edit" ></i>
                                     Editar
                                 </a>
-                                    <a href="{{ url('cliente.delete', {id: cliente.id}) }}" 
+                                <a href="{{ url('contato.delete', {id: contato.id}) }}" 
                                    class="btn btn-danger">
                                     <i class="fa fa-remove" ></i>
                                     Excluir

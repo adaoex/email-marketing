@@ -12,14 +12,14 @@ class BootstrapMiddleware
 
     private $bootstrap;
     
-    private $flashMessage;
+    private $flash;
 
     public function __construct(
             BootstrapInterface $bootstrapInterface, 
-            FlashMessageInterface $flashMessage
+            FlashMessageInterface $flash
     ) {
         $this->bootstrap = $bootstrapInterface;
-        $this->flashMessage = $flashMessage;
+        $this->flash = $flash;
     }
 
     public function __invoke(
@@ -28,7 +28,7 @@ class BootstrapMiddleware
             callable $next = null
     ) {
         $this->bootstrap->create();
-        $request = $request->withAttribute('flash', $this->flashMessage);
+        $request = $request->withAttribute('flash', $this->flash);
         return $next($request, $response);
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace EmailMarketing\Application\Action\Cliente;
+namespace EmailMarketing\Application\Action\Contato;
 
-use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template;
 
-class ClienteListPageAction
+class ContatoListPageAction
 {
 
     private $template;
@@ -16,7 +16,7 @@ class ClienteListPageAction
     private $repository;
 
     public function __construct(
-            ClienteRepositoryInterface $repository,
+    ContatoRepositoryInterface $repository,
             Template\TemplateRendererInterface $template
     ){
         $this->template = $template;
@@ -29,13 +29,13 @@ class ClienteListPageAction
             callable $next = null
     ){
 
-        $clientes = $this->repository->findAll();
+        $contatos = $this->repository->findAll();
         $flash = $request->getAttribute('flash');
 
         $message = $flash->getMessage('success');
         return new HtmlResponse(
-            $this->template->render('app::cliente/list', [
-                'clientes' => $clientes,
+            $this->template->render('app::contato/list', [
+                'contatos' => $contatos,
                 'message' => $message,
             ]
         ));

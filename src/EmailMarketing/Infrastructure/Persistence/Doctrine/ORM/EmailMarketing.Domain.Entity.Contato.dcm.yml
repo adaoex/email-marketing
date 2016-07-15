@@ -1,0 +1,17 @@
+## EmailMarketing.Domain.Entity.Contato.dcm.yml
+EmailMarketing\Domain\Entity\Contato:
+    type: entity
+    repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepository
+    table: contatos
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields: 
+        nome:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255

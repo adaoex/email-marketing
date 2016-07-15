@@ -7,46 +7,46 @@ use EmailMarketing\Domain\Service\FlashMessageInterface;
 
 class FlashMessage implements FlashMessageInterface
 {
-    
+
     /**
      * @var Session Sessão
      */
     private $session;
-    
+
     /**
      * @var \Aura\Session\Segment 
      */
     private $segment;
 
-    public function __construct( Session $session )
+    public function __construct(Session $session)
     {
         $this->session = $session;
-        if ( $this->session->isStarted() ){
+        if (!$this->session->isStarted()) {
             $this->session->start();
         }
     }
 
-    public function getMessage($key)
+    public function setNamespace($name = __NAMESPACE__ )
     {
-        if ( ! $this->segment ){
-            $this->setNamespace();
-        }
-        return $this->segment->getFlash($key);
+        $this->segment = $this->session->getSegment($name);
+        return $this;
     }
-
+        
     public function setMessage($key, $value)
     {
-        if ( ! $this->segment ){
+        if (!$this->segment) {
             $this->setNamespace();
         }
         $this->segment->setFlash($key, $value);
         return $this;
     }
 
-    public function setNamespace($name = __NAMESPACE__)
+    public function getMessage($key)
     {
-        $this->segment =  $this->session->getSegment($name);
-        return $this;
+        if (!$this->segment) {
+            $this->setNamespace();
+        }
+        return $this->segment->getFlash($key);
     }
 
 }
