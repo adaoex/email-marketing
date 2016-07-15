@@ -65,7 +65,7 @@ return [
             'name' => 'cliente.update',
             'path' => '/admin/cliente/update/{id}',
             'middleware' => Cliente\ClienteUpdatePageAction::class,
-            'allowed_methods' => ['GET','POST'],
+            'allowed_methods' => ['GET','PUT'],
             'options' => [
                 'tokens' => [
                     'id' => '\d+'
@@ -76,7 +76,12 @@ return [
             'name' => 'cliente.delete',
             'path' => '/admin/cliente/{id}/delete',
             'middleware' => Cliente\ClienteDeletePageAction::class,
-            'allowed_methods' => ['GET'],
+            'allowed_methods' => ['GET','DELETE'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
         ],
         [
             'name' => 'contato.list',
@@ -94,7 +99,7 @@ return [
             'name' => 'contato.update',
             'path' => '/admin/contato/update/{id}',
             'middleware' => Contato\ContatoUpdatePageAction::class,
-            'allowed_methods' => ['GET','POST'],
+            'allowed_methods' => ['GET','PUT'],
             'options' => [
                 'tokens' => [
                     'id' => '\d+'
@@ -105,7 +110,12 @@ return [
             'name' => 'contato.delete',
             'path' => '/admin/contato/{id}/delete',
             'middleware' => Contato\ContatoDeletePageAction::class,
-            'allowed_methods' => ['GET'],
+            'allowed_methods' => ['GET','DELETE'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
         ],
     ],
 ];

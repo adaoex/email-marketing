@@ -5,6 +5,7 @@ namespace EmailMarketing\Application\Action\Cliente;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template;
@@ -35,17 +36,23 @@ class ClienteDeletePageAction
     ) {
         $flash = $request->getAttribute('flash');
         $id = $request->getAttribute('id');
-        
-        try {
-            $entity = $this->repository->find($id);
-            $this->repository->remove($entity);
-            $flash->setMessage('success', "Contato excluído com sucesso");
-        } catch (\Exception $exc) {
-            $flash->setMessage('error', "Erro ao excluir contato");
+        $entity = $this->repository->find($id);
+                
+        if ( $request->getMethod() == "DELETE" ){
+            try {
+                $this->repository->remove($entity);
+                $flash->setMessage('success', "Cliente excluído com sucesso");
+            } catch (\Exception $exc) {
+                $flash->setMessage('error', "Erro ao excluir contato");
+            }
+            $uri = $this->router->generateUri('cliente.list');
+            return new RedirectResponse( $uri );
         }
         
-        $uri = $this->router->generateUri('cliente.list');
-        return new RedirectResponse( $uri );
-
+        return new HtmlResponse(
+            $this->template->render('app::cliente/delete', [
+                'cliente' => $entity,
+            ])
+        );
     }
 }
