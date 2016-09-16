@@ -2,7 +2,8 @@
 
 namespace EmailMarketing\Application\Action\Cliente;
 
-use EmailMarketing\Domain\Entity\Endereco;
+use EmailMarketing\Application\Form\ClienteForm;
+use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -23,16 +24,20 @@ class ClienteUpdatePageAction
 
     private $router;
      
+    private $form;
+    
     public function __construct(
             ClienteRepositoryInterface $repository,
             EnderecoRepositoryInterface $repositoryEndereco,
             Template\TemplateRendererInterface $template,
-            RouterInterface $router
+            RouterInterface $router,
+            ClienteForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->repositoryEndereco = $repositoryEndereco;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(
@@ -45,40 +50,33 @@ class ClienteUpdatePageAction
         $id = $request->getAttribute('id');
         $entity = $this->repository->find($id);
         
+        $this->form->add(new HttpMethodElement('PUT'));
+        $this->form->bind($entity);
+        
         if ( $request->getMethod() == "PUT" ){
-            $data = $request->getParsedBody();
+            $flash = $request->getAttribute('flash');
+            $dataForm = $request->getParsedBody();
             
-            $entity->setNome($data['nome'])
-                    ->setCpf($data['cpf'])
-                    ->setEmail($data['email']);
+            $this->form->setData($dataForm);
             
-            foreach ($data['logradouro'] as $k => $logradouro){
-                if (strlen($logradouro) > 0 ){
-                    if ( key_exists('endereco_id', $data) && is_numeric( $data['endereco_id'][$k]) ){
-                        $endereco = $this->repositoryEndereco->find($data['endereco_id'][$k]);
-                    }
-                    if ( ! $endereco instanceof Endereco) {
-                        $endereco = new Endereco();    
-                    }
-                    $endereco->setLogradouro($logradouro)
-                            ->setCidade($data['cidade'][$k])
-                            ->setEstado($data['estado'][$k])
-                            ->setCep($data['cep'][$k])
-                            ->setCliente($entity);
-                    $entity->addEndereco($endereco);
-                }
+            if ( $this->form->isValid() ){
+                $entity = $this->form->getData();
+                
+                try {
+                    $this->repository->update($entity);
+                    $flash->setMessage("success", "Cliente cadastrado com sucesso");
+                    $uri = $this->router->generateUri('cliente.list');
+                    return new RedirectResponse( $uri );
+                } catch (Exception $ex) {
+                    $flash->setMessage("error", "Erro no cadastrado do cliente");
+                }    
             }
-            
-            $this->repository->update($entity);
-           
-            $flash->setMessage('success', "Cliente editado com sucesso");
-            $uri = $this->router->generateUri('cliente.list');
-            return new RedirectResponse( $uri );
         }
 
         return new HtmlResponse(
             $this->template->render('app::cliente/update', [
                 'cliente' => $entity,
+                'form' => $this->form,
             ])
         );
     }

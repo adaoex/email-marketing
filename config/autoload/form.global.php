@@ -1,5 +1,7 @@
 <?php
 
+use EmailMarketing\Application\Form\ClienteForm;
+use EmailMarketing\Application\Form\Factory\ClienteFormFactory;
 use EmailMarketing\Infrastructure\View\HelperPluginManagerFactory;
 use Zend\Form\ConfigProvider;
 use Zend\Stdlib\ArrayUtils;
@@ -10,7 +12,8 @@ $forms = [
         'invokables' => [
         ],
         'factories' => [
-            HelperPluginManager::class => HelperPluginManagerFactory::class
+            HelperPluginManager::class => HelperPluginManagerFactory::class,
+            ClienteForm::class => ClienteFormFactory::class
         ],
         'aliases' => [
         ],

@@ -1,0 +1,31 @@
+<div class="box-body" >
+    {{ formHidden( form.get('csrf')) }}
+    {% set messages_nome = formElementErrors(form.get('cliente').get('nome'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_nome ? 'has-error' }}">
+        {{ formLabel(form.get('cliente').get('nome')) }}
+        {{ formElement(form.get('cliente').get('nome')) }}
+        {{ messages_nome | raw }}
+    </div>
+    {% set messages_cpf = formElementErrors(form.get('cliente').get('cpf'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_cpf ? 'has-error' }}">
+        {{ formLabel(form.get('cliente').get('cpf')) }}
+        {{ formElement(form.get('cliente').get('cpf')) }}
+        {{ messages_cpf | raw }}
+    </div>
+    {% set messages_email = formElementErrors(form.get('cliente').get('email'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_email ? 'has-error' }}">
+        {{ formLabel(form.get('cliente').get('email')) }}
+        {{ formElement(form.get('cliente').get('email')) }}
+        {{ messages_email | raw }}
+    </div>
+    
+    {% set enderecos = form.get('cliente').get('enderecos') %}
+    {% set enderecosFieldset = enderecos.getTargetElement() %}
+    {% set total_enderecos = enderecos.getCount() %}
+
+    {{ formCollection(enderecos) }}
+
+    {% if ( enderecos.allowAdd() ) %}
+        <button id="add-novo-endereco" type="button" >Adicionar Endereço</button>
+    {% endif %}
+</div>

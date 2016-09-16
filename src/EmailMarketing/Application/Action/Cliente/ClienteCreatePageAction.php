@@ -2,9 +2,10 @@
 
 namespace EmailMarketing\Application\Action\Cliente;
 
-use EmailMarketing\Domain\Entity\Cliente;
-use EmailMarketing\Domain\Entity\Endereco;
+use EmailMarketing\Application\Form\ClienteForm;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Service\ClienteServiceInterface;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -18,17 +19,25 @@ class ClienteCreatePageAction
     private $template;
     
     private $repository;
+    
+    private $clienteService;
 
     private $router;
-     
+    
+    private $form;
+    
     public function __construct(
             ClienteRepositoryInterface $repository,
+            ClienteServiceInterface $clienteService,
             Template\TemplateRendererInterface $template,
-            RouterInterface $router
+            RouterInterface $router,
+            ClienteForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
+        $this->clienteService = $clienteService;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(
@@ -39,38 +48,28 @@ class ClienteCreatePageAction
         
         if ( $request->getMethod() == "POST" ){
             $flash = $request->getAttribute('flash');
-            $data = $request->getParsedBody();
+            $dataForm = $request->getParsedBody();
             
-            $entity = new Cliente();
-            $entity->setNome($data['nome'])
-                    ->setCpf($data['cpf'])
-                    ->setEmail($data['email']);
+            $this->form->setData($dataForm);
             
-            foreach ($data['logradouro'] as $k => $logradouro){
-                if (strlen($logradouro) > 0 ){
-                    $endereco = new Endereco();
-                    $endereco->setLogradouro($logradouro)
-                            ->setCidade($data['cidade'][$k])
-                            ->setEstado($data['estado'][$k])
-                            ->setCep($data['cep'][$k])
-                            ->setCliente($entity);
-                    $entity->addEndereco($endereco);
-                }
+            if ( $this->form->isValid() ){
+                $entity = $this->form->getData();
+                
+                try {
+                    $this->clienteService->create($entity);
+                    $flash->setMessage("success", "Cliente cadastrado com sucesso");
+                    $uri = $this->router->generateUri('cliente.list');
+                    return new RedirectResponse( $uri );
+                } catch (Exception $ex) {
+                    $flash->setMessage("error", "Erro no cadastrado do cliente");
+                }    
             }
-            
-            try {
-                $this->repository->create($entity);
-                $flash->setMessage("success", "Cliente cadastrado com sucesso");
-                $uri = $this->router->generateUri('cliente.list');
-                return new RedirectResponse( $uri );
-            } catch (Exception $ex) {
-                $flash->setMessage("error", "Erro no cadastrado do cliente");
-            }
-            
         }
 
         return new HtmlResponse(
-            $this->template->render('app::cliente/create')
+            $this->template->render('app::cliente/create', [
+                'form' => $this->form
+            ])
         );
     }
 }

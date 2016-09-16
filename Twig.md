@@ -1,6 +1,6 @@
 * Alguns Comandos Twig
 
-´´´twig
+´´´php
 {% extends '@layout/default.html.twig' %}
 
 {% block content %}
@@ -39,7 +39,7 @@
     
     {% for i in 0..20 %}
         {{ i }}<br />
-    {%endfor%}
+    {% endfor %}
     
     {% for v in 'a'..'z' %}
         {{ loop.index }} - {{ v }}

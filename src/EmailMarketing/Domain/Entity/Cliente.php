@@ -70,22 +70,22 @@ class Cliente
         $this->cpf = $cpf;
         return $this;
     }
-
-    public function setEnderecos($enderecos)
+    
+    public function addEnderecos(\Doctrine\Common\Collections\Collection $enderecos)
     {
-        $this->enderecos = $enderecos;
+        foreach ($enderecos as $endereco) {
+            $endereco->setCliente($this);
+            $this->enderecos->add( $endereco );
+        }
         return $this;
     }
     
-    public function addEndereco(Endereco $endereco)
+    public function removeEnderecos(\Doctrine\Common\Collections\Collection $enderecos)
     {
-        $this->enderecos->add( $endereco );
-        return $this;
-    }
-    
-    public function removeEndereco(Endereco $endereco)
-    {
-        $this->enderecos->remove( $endereco );
+        foreach ($enderecos as $endereco) {
+            $endereco->setCliente(null);
+            $this->enderecos->removeElement( $endereco );
+        }
         return $this;
     }
     

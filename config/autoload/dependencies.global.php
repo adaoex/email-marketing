@@ -5,6 +5,8 @@ use DaMess\Factory\AuraSessionFactory;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
+use EmailMarketing\Domain\Service\ClienteServiceFactory;
+use EmailMarketing\Domain\Service\ClienteServiceInterface;
 use EmailMarketing\Domain\Service\FlashMessageInterface;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepositoryFactory;
@@ -31,6 +33,7 @@ return [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
             ClienteRepositoryInterface::class => ClienteRepositoryFactory::class,
+            ClienteServiceInterface::class => ClienteServiceFactory::class,
             EnderecoRepositoryInterface::class => EnderecoRepositoryFactory::class,
             ContatoRepositoryInterface::class => ContatoRepositoryFactory::class,
             Session::class => AuraSessionFactory::class,

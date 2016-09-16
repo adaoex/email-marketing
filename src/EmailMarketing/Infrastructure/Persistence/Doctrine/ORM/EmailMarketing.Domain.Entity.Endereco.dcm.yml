@@ -31,5 +31,3 @@ EmailMarketing\Domain\Entity\Endereco:
                 name: cliente_id
                 referencedColumnName: id
                 onDelete: CASCADE
-
-            
