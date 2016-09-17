@@ -1,7 +1,6 @@
 <?php
 
-use EmailMarketing\Application\Form\ClienteForm;
-use EmailMarketing\Application\Form\Factory\ClienteFormFactory;
+use EmailMarketing\Application\Form;
 use EmailMarketing\Infrastructure\View\HelperPluginManagerFactory;
 use Zend\Form\ConfigProvider;
 use Zend\Stdlib\ArrayUtils;
@@ -13,7 +12,8 @@ $forms = [
         ],
         'factories' => [
             HelperPluginManager::class => HelperPluginManagerFactory::class,
-            ClienteForm::class => ClienteFormFactory::class
+            Form\ClienteForm::class => Form\Factory\ClienteFormFactory::class,
+            Form\ContatoForm::class => Form\Factory\ContatoFormFactory::class,
         ],
         'aliases' => [
         ],

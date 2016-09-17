@@ -2,6 +2,8 @@
 
 namespace EmailMarketing\Application\Action\Cliente;
 
+use EmailMarketing\Application\Form\ClienteForm;
+use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,14 +21,18 @@ class ClienteDeletePageAction
 
     private $router;
      
+    private $form;
+    
     public function __construct(
-    ClienteRepositoryInterface $repository,
-            Template\TemplateRendererInterface $template,
-            RouterInterface $router
+        ClienteRepositoryInterface $repository,
+        Template\TemplateRendererInterface $template,
+        RouterInterface $router,
+        ClienteForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(
@@ -37,7 +43,10 @@ class ClienteDeletePageAction
         $flash = $request->getAttribute('flash');
         $id = $request->getAttribute('id');
         $entity = $this->repository->find($id);
-                
+
+        $this->form->add(new HttpMethodElement('DELETE'));
+        $this->form->bind($entity);
+        
         if ( $request->getMethod() == "DELETE" ){
             try {
                 $this->repository->remove($entity);
@@ -51,7 +60,7 @@ class ClienteDeletePageAction
         
         return new HtmlResponse(
             $this->template->render('app::cliente/delete', [
-                'cliente' => $entity,
+                'form' => $this->form,
             ])
         );
     }

@@ -3,6 +3,7 @@
 namespace EmailMarketing\Application\Action\Contato\Factory;
 
 use EmailMarketing\Application\Action\Contato\ContatoCreatePageAction;
+use EmailMarketing\Application\Form\ContatoForm;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
@@ -16,7 +17,8 @@ class ContatoCreatePageFactory
         return new ContatoCreatePageAction(
                 $container->get(ContatoRepositoryInterface::class),
                 $container->get(TemplateRendererInterface::class),
-                $container->get(RouterInterface::class)
+                $container->get(RouterInterface::class),
+                $container->get(ContatoForm::class)
         );
     }
 

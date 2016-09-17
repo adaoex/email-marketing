@@ -2,6 +2,8 @@
 
 namespace EmailMarketing\Application\Action\Contato;
 
+use EmailMarketing\Application\Form\ContatoForm;
+use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -18,15 +20,19 @@ class ContatoDeletePageAction
     private $repository;
 
     private $router;
+    
+    private $form;
      
     public function __construct(
             ContatoRepositoryInterface $repository,
             Template\TemplateRendererInterface $template,
-            RouterInterface $router
+            RouterInterface $router,
+            ContatoForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(
@@ -37,7 +43,10 @@ class ContatoDeletePageAction
         $flash = $request->getAttribute('flash');
         $id = $request->getAttribute('id');
         $entity = $this->repository->find($id);
-                
+               
+        $this->form->add(new HttpMethodElement('DELETE'));
+        $this->form->bind($entity);
+        
         if ( $request->getMethod() == "DELETE" ){
             try {
                 $this->repository->remove($entity);
@@ -52,7 +61,7 @@ class ContatoDeletePageAction
         
         return new HtmlResponse(
             $this->template->render('app::contato/delete', [
-                'contato' => $entity,
+                'form' => $this->form,
             ])
         );
 

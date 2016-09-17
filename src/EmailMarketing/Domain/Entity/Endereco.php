@@ -12,6 +12,8 @@ class Endereco
     
     private $cidade;
     
+    private $bairro;
+    
     private $estado;
     
     private $cliente;
@@ -34,6 +36,11 @@ class Endereco
     public function getCidade()
     {
         return $this->cidade;
+    }
+
+    public function getBairro()
+    {
+        return $this->bairro;
     }
 
     public function getEstado()
@@ -70,6 +77,12 @@ class Endereco
         return $this;
     }
 
+    public function setBairro($bairro)
+    {
+        $this->bairro = $bairro;
+        return $this;
+    }
+
     public function setEstado($estado)
     {
         $this->estado = $estado;
@@ -81,5 +94,7 @@ class Endereco
         $this->cliente = $cliente;
         return $this;
     }
+
+
     
 }

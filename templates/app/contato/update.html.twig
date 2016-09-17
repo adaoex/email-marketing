@@ -1,37 +1,39 @@
 {% extends '@layout/default.html.twig' %}
 
 {% block title %}
-    Edição de Contato - {{ parent() }}
+    Cadastro de Contato - {{ parent() }}
 {% endblock %}
 
 {% block page_header %}
-    Edição do Contato - {{ contato.nome }}
+    Cadastro de Contato
 {% endblock %}
 
 {% block content %}
+    
+    {% do form.setAttribute('action',url('contato.update', {id: form.getObject().id })) %}
+    
+    {% set nome = form.get('nome') %}
+    {% do nome.setAttribute('class','form-control') %}
+
+    {% set email = form.get('email') %}
+    {% do email.setAttribute('class','form-control') %}
+    
+    {% do form.prepare() %}
+    
     <div class="row" >
         <div class="col-md-8">
             <div class="box box-primary" >
                 <div class="box-body" >
-                    <form name="form" role="form" method="post" action="{{ url('contato.update', {id: contato.id}) }}" >
-                        <input type="hidden" name="_method" value="PUT" />
-                        <div class="box-body" >
-                            <div class="form-group">
-                                <label for="nome">Nome: </label>
-                                <input type="text" name="nome" value="{{ contato.nome }}" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail: </label>
-                                <input type="email" name="email" value="{{ contato.email }}" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="box-footer" >
-                            <button class="btn btn-primary" type="submit" >
-                                <i class="glyphicon glyphicon-floppy-save" ></i>
-                                Editar
-                            </button>
-                        </div>
-                    </form>
+                    {{ form().openTag(form) | raw }}
+                    {{ formHidden( form.get('_method')) }}
+                    {% include '@app/contato/_form.html.twig' %}
+                    <div class="box-footer" >
+                        <button value="" class="btn btn-primary" id="submit" type="submit">
+                            <i class="fa fa-save" ></i>
+                            Alterar
+                        </button>
+                    </div>
+                    {{ form().closeTag() | raw }}
                 </div>
             </div>
         </div>

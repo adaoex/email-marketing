@@ -45,8 +45,6 @@ class ClienteUpdatePageAction
             ResponseInterface $response,
             callable $next = null
     ) {
-        
-        $flash = $request->getAttribute('flash');
         $id = $request->getAttribute('id');
         $entity = $this->repository->find($id);
         
@@ -54,9 +52,9 @@ class ClienteUpdatePageAction
         $this->form->bind($entity);
         
         if ( $request->getMethod() == "PUT" ){
+            
             $flash = $request->getAttribute('flash');
             $dataForm = $request->getParsedBody();
-            
             $this->form->setData($dataForm);
             
             if ( $this->form->isValid() ){

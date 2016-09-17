@@ -19,6 +19,10 @@ EmailMarketing\Domain\Entity\Endereco:
             type: string
             length: 255
             nullable: false
+        bairro:
+            type: string
+            length: 255
+            nullable: false
         estado:
             type: string
             length: 25

@@ -2,6 +2,8 @@
 
 namespace EmailMarketing\Application\Action\Contato;
 
+use EmailMarketing\Application\Form\ContatoForm;
+use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -18,15 +20,20 @@ class ContatoUpdatePageAction
     private $repository;
 
     private $router;
-     
+    
+    private $form;
+
+
     public function __construct(
             ContatoRepositoryInterface $repository,
             Template\TemplateRendererInterface $template,
-            RouterInterface $router
+            RouterInterface $router,
+            ContatoForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(
@@ -39,21 +46,25 @@ class ContatoUpdatePageAction
         $id = $request->getAttribute('id');
         $entity = $this->repository->find($id);
         
+        $this->form->add(new HttpMethodElement('PUT'));
+        $this->form->bind($entity);
+        
         if ( $request->getMethod() == "PUT" ){
-            $data = $request->getParsedBody();
+            $dataForm = $request->getParsedBody();
+            $this->form->setData($dataForm);
             
-            $entity->setNome($data['nome'])
-                    ->setEmail($data['email']);
-            $this->repository->update($entity);
-           
-            $flash->setMessage('success', "Contato editado com sucesso");
-            $uri = $this->router->generateUri('contato.list');
-            return new RedirectResponse( $uri );
+            if ( $this->form->isValid() ){
+                $entity = $this->form->getData();
+                $this->repository->update($entity);
+                $flash->setMessage('success', "Contato editado com sucesso");
+                $uri = $this->router->generateUri('contato.list');
+                return new RedirectResponse( $uri );
+            }
         }
 
         return new HtmlResponse(
             $this->template->render('app::contato/update', [
-                'contato' => $entity,
+                'form' => $this->form,
             ])
         );
     }
