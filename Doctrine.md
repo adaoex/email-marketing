@@ -49,4 +49,11 @@ vendor/bin/doctrine-module orm:run-dql "SELECT c FROM App\Entity\Cliente c order
 http://doctrine-orm.readthedocs.io/en/latest/reference/events.html
 
 
+## Data Fixture
+https://github.com/doctrine/data-fixtures
 
+https://github.com/codeedu/zend-doctrine-fixture
+
+```
+vendor/bin/d octrine-module data-fixture:import [--purge-with-trucate] [--append]
+```

@@ -38,6 +38,7 @@ return [
             ContatoRepositoryInterface::class => ContatoRepositoryFactory::class,
             Session::class => AuraSessionFactory::class,
             FlashMessageInterface::class => FlashMessageFactory::class,
+            'doctrine:fixtures_cmd:load'   => \CodeEdu\FixtureFactory::class,
         ],
         'aliases' => [
             'Configuration' => 'config', //Doctrine needs a service called Configuration
