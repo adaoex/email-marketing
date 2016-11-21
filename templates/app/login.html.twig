@@ -1,0 +1,55 @@
+{% extends '@layout/auth.html.twig' %}
+
+{% block title %}
+     E-Mail Marketing - Login - {{ parent() }}
+{% endblock %}
+
+{% block page_header %}
+    E-Mail Marketing - Login
+{% endblock %}
+
+{% block content %}
+    
+    {% set email = form.get('email') %}
+    {% do email.setAttribute('class','form-control') %}
+
+    {% set password = form.get('password') %}
+    {% do password.setAttribute('class','form-control') %}
+    
+    {% set submit = form.get('submit') %}
+    {% do submit.setAttribute('class','btn btn-primary btn-lg btn-block').setLabel('Entrar') %}
+    
+    {% do form.setAttribute('action',url('auth.login')) %}
+    {% do form.prepare() %}
+    
+    <div class="row" >
+        <div class="col-md-8 col-md-offset-2">
+            <div class="box box-success" >
+                <div class="box-body" >
+                    
+                    {{ form().openTag(form) | raw }}
+                    {{ formHidden( form.get('csrf')) }}
+                    {% set messages_email = formElementErrors(email, {class: 'help-block'}) %}
+                    <div class="form-group {{ messages_email ? 'has-error' }}">
+                        {{ formLabel(email) }}
+                        {{ formElement(email) }}
+                        {{ messages_email | raw }}
+                    </div>
+                    
+                    {% set messages_pw = formElementErrors(password, {class: 'help-block'}) %}
+                    <div class="form-group {{ messages_pw ? 'has-error' }}">
+                        {{ formLabel(password) }}
+                        {{ formElement(password) }}
+                        {{ messages_pw | raw }}
+                    </div>
+                    <div class="box-footer" >
+                        {{ formButton(submit) }}
+                    </div>
+                    {{ form().closeTag() | raw }}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

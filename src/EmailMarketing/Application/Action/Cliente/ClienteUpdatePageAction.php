@@ -6,6 +6,7 @@ use EmailMarketing\Application\Form\ClienteForm;
 use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -62,11 +63,11 @@ class ClienteUpdatePageAction
                 
                 try {
                     $this->repository->update($entity);
-                    $flash->setMessage("success", "Cliente cadastrado com sucesso");
+                    $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Cliente cadastrado com sucesso");
                     $uri = $this->router->generateUri('cliente.list');
                     return new RedirectResponse( $uri );
                 } catch (Exception $ex) {
-                    $flash->setMessage("error", "Erro no cadastrado do cliente");
+                    $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro no cadastrado do cliente");
                 }    
             }
         }

@@ -1,17 +1,20 @@
 <?php
 
-use Aura\Session\Session;
-use DaMess\Factory\AuraSessionFactory;
+use CodeEdu\FixtureFactory;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
+use EmailMarketing\Domain\Service\AuthInterface;
 use EmailMarketing\Domain\Service\ClienteServiceFactory;
 use EmailMarketing\Domain\Service\ClienteServiceInterface;
 use EmailMarketing\Domain\Service\FlashMessageInterface;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepositoryFactory;
 use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\EnderecoRepositoryFactory;
+use EmailMarketing\Infrastructure\Service\AuthServiceFactory;
 use EmailMarketing\Infrastructure\Service\FlashMessageFactory;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -36,13 +39,15 @@ return [
             ClienteServiceInterface::class => ClienteServiceFactory::class,
             EnderecoRepositoryInterface::class => EnderecoRepositoryFactory::class,
             ContatoRepositoryInterface::class => ContatoRepositoryFactory::class,
-            Session::class => AuraSessionFactory::class,
             FlashMessageInterface::class => FlashMessageFactory::class,
-            'doctrine:fixtures_cmd:load'   => \CodeEdu\FixtureFactory::class,
+            'doctrine:fixtures_cmd:load'   => FixtureFactory::class,
+            AuthInterface::class => AuthServiceFactory::class,
         ],
         'aliases' => [
             'Configuration' => 'config', //Doctrine needs a service called Configuration
             'Config' => 'config', //Doctrine needs a service called Config
+            AuthenticationServiceInterface::class => 'doctrine.authenticationservice.orm_default',
+            AuthenticationService::class  => 'doctrine.authenticationservice.orm_default',
         ],
     ],
     

@@ -1,5 +1,8 @@
 <?php
 
+use Doctrine\ORM\EntityManager;
+use EmailMarketing\Domain\Entity\User;
+
 return [
     'doctrine' => [
         'connection' => [
@@ -12,7 +15,7 @@ return [
                     'password' => 'secret',
                     'dbname' => 'emailmarketing',
                     'driverOptions' => [
-                        \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+                        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
                     ],
                 ],
             ]
@@ -30,6 +33,17 @@ return [
                     'EmailMarketing\Domain\Entity' => 'EmailMarketing_driver'
                 ]
             ]
-        ]
+        ],
+        'authentication' => [
+            'orm_default' => [
+                'object_manager' => EntityManager::class,
+                'identity_class' => User::class,
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+                'credential_callable' => function (User $user, $passwordGiven) {
+                    return password_verify($passwordGiven, $user->getPassword());
+                },
+            ],
+        ],
     ]
 ];

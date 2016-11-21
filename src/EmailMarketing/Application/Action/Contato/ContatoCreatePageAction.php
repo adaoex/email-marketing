@@ -4,6 +4,7 @@ namespace EmailMarketing\Application\Action\Contato;
 
 use EmailMarketing\Application\Form\ContatoForm;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -49,11 +50,11 @@ class ContatoCreatePageAction
             if ( $this->form->isValid() ){
                 $entity = $this->form->getData();
                 $this->repository->create($entity);
-                $flash->setMessage("success", "Contato cadastrado com sucesso");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Contato cadastrado com sucesso");
                 $uri = $this->router->generateUri('contato.list');
                 return new RedirectResponse( $uri );
             }else{
-                $flash->setMessage("error", "Erro no cadastrado do cliente");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro no cadastrado do cliente");
             }
         }
 

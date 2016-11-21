@@ -14,6 +14,7 @@ $forms = [
             HelperPluginManager::class => HelperPluginManagerFactory::class,
             Form\ClienteForm::class => Form\Factory\ClienteFormFactory::class,
             Form\ContatoForm::class => Form\Factory\ContatoFormFactory::class,
+            Form\LoginForm::class => Form\Factory\LoginFormFactory::class,
         ],
         'aliases' => [
         ],
@@ -22,6 +23,7 @@ $forms = [
         'invokables' => [
         ],
         'factories' => [
+            'identity' => \Zend\View\Helper\Service\IdentityFactory::class,
         ],
         'aliases' => [
         ],

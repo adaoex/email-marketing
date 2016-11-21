@@ -5,6 +5,7 @@ namespace EmailMarketing\Application\Action\Contato;
 use EmailMarketing\Application\Form\ContatoForm;
 use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -50,9 +51,9 @@ class ContatoDeletePageAction
         if ( $request->getMethod() == "DELETE" ){
             try {
                 $this->repository->remove($entity);
-                $flash->setMessage('success', "Contato excluído com sucesso");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Contato excluído com sucesso");
             } catch (\Exception $exc) {
-                $flash->setMessage('error', "Erro ao excluir contato");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro ao excluir contato");
             }
             
             $uri = $this->router->generateUri('contato.list');

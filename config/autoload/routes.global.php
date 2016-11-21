@@ -4,6 +4,10 @@ use EmailMarketing\Application\Action\Cliente;
 use EmailMarketing\Application\Action\Contato;
 use EmailMarketing\Application\Action\HomePageAction;
 use EmailMarketing\Application\Action\HomePageFactory;
+use EmailMarketing\Application\Action\LoginPageAction;
+use EmailMarketing\Application\Action\LoginPageFactory;
+use EmailMarketing\Application\Action\LogoutAction;
+use EmailMarketing\Application\Action\LogoutFactory;
 use EmailMarketing\Application\Action\PingAction;
 use EmailMarketing\Application\Action\TestePageAction;
 use EmailMarketing\Application\Action\TestePageFactory;
@@ -18,6 +22,8 @@ return [
         ],
         'factories' => [
             HomePageAction::class => HomePageFactory::class,
+            LoginPageAction::class => LoginPageFactory::class,
+            LogoutAction::class => LogoutFactory::class,
             TestePageAction::class => TestePageFactory::class,
             Cliente\ClienteListPageAction::class => Cliente\Factory\ClienteListPageFactory::class,
             Cliente\ClienteCreatePageAction::class => Cliente\Factory\ClienteCreatePageFactory::class,
@@ -48,6 +54,18 @@ return [
             'path' => '/teste',
             'middleware' => TestePageAction::class,
             'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'auth.login',
+            'path' => '/auth/login',
+            'middleware' => LoginPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'auth.logout',
+            'path' => '/auth/logout',
+            'middleware' => LogoutAction::class,
+            'allowed_methods' => ['GET', 'POST'],
         ],
         [
             'name' => 'cliente.list',

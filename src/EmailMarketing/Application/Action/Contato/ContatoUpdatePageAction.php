@@ -5,6 +5,7 @@ namespace EmailMarketing\Application\Action\Contato;
 use EmailMarketing\Application\Form\ContatoForm;
 use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -56,9 +57,11 @@ class ContatoUpdatePageAction
             if ( $this->form->isValid() ){
                 $entity = $this->form->getData();
                 $this->repository->update($entity);
-                $flash->setMessage('success', "Contato editado com sucesso");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Contato editado com sucesso");
                 $uri = $this->router->generateUri('contato.list');
                 return new RedirectResponse( $uri );
+            }else{
+                $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro no cadastrado do contato");
             }
         }
 

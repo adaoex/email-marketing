@@ -3,6 +3,7 @@
 namespace EmailMarketing\Application\Action\Contato;
 
 use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -32,7 +33,7 @@ class ContatoListPageAction
         $contatos = $this->repository->findAll();
         $flash = $request->getAttribute('flash');
 
-        $message = $flash->getMessage('success');
+        $message = $flash->getMessage(FlashMessageInterface::MESSAGE_SUCCESS);
         return new HtmlResponse(
             $this->template->render('app::contato/list', [
                 'contatos' => $contatos,

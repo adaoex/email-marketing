@@ -11,6 +11,7 @@ return [
             Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
             Middleware\BootstrapMiddleware::class => Middleware\BootstrapMiddlewareFactory::class,
             Middleware\TwigMiddleware::class => Middleware\TwigMiddlewareFactory::class,
+            Middleware\AuthenticationMiddleware::class => Middleware\AuthenticationMiddlewareFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -50,6 +51,14 @@ return [
             'priority' => 10000,
         ],
 
+        'admin' => [
+            'path' => '/admin',
+            'middleware' => [
+                Middleware\AuthenticationMiddleware::class,
+            ],
+            'priority' => 1,
+        ],
+        
         'routing' => [
             'middleware' => [
                 ApplicationFactory::ROUTING_MIDDLEWARE,

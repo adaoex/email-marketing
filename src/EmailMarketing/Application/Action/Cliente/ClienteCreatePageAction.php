@@ -5,6 +5,7 @@ namespace EmailMarketing\Application\Action\Cliente;
 use EmailMarketing\Application\Form\ClienteForm;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
 use EmailMarketing\Domain\Service\ClienteServiceInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -57,11 +58,11 @@ class ClienteCreatePageAction
                 
                 try {
                     $this->clienteService->create($entity);
-                    $flash->setMessage("success", "Cliente cadastrado com sucesso");
+                    $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Cliente cadastrado com sucesso");
                     $uri = $this->router->generateUri('cliente.list');
                     return new RedirectResponse( $uri );
                 } catch (Exception $ex) {
-                    $flash->setMessage("error", "Erro no cadastrado do cliente");
+                    $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro no cadastrado do cliente");
                 }    
             }
         }

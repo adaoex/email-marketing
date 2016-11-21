@@ -1,0 +1,23 @@
+## EmailMarketing.Domain.Entity.Contato.dcm.yml
+EmailMarketing\Domain\Entity\User:
+    type: entity
+    repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\UserRepository
+    table: users
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields: 
+        nome:
+            type: string
+            length: 255
+        email:
+            type: string
+            unique: true
+            length: 255
+        password: 
+            type: string
+            length: 60
+    lifecycleCallbacks:
+        prePersist: [generatePassword]

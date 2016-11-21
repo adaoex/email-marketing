@@ -5,6 +5,7 @@ namespace EmailMarketing\Application\Action\Cliente;
 use EmailMarketing\Application\Form\ClienteForm;
 use EmailMarketing\Application\Form\HttpMethodElement;
 use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -50,9 +51,9 @@ class ClienteDeletePageAction
         if ( $request->getMethod() == "DELETE" ){
             try {
                 $this->repository->remove($entity);
-                $flash->setMessage('success', "Cliente excluído com sucesso");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, "Cliente excluído com sucesso");
             } catch (\Exception $exc) {
-                $flash->setMessage('error', "Erro ao excluir contato");
+                $flash->setMessage(FlashMessageInterface::MESSAGE_ERROR, "Erro ao excluir contato");
             }
             $uri = $this->router->generateUri('cliente.list');
             return new RedirectResponse( $uri );
