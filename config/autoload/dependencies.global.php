@@ -1,23 +1,30 @@
 <?php
 
 use CodeEdu\FixtureFactory;
-use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
-use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
-use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
-use EmailMarketing\Domain\Service\AuthInterface;
-use EmailMarketing\Domain\Service\ClienteServiceFactory;
-use EmailMarketing\Domain\Service\ClienteServiceInterface;
-use EmailMarketing\Domain\Service\FlashMessageInterface;
-use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
-use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepositoryFactory;
-use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\EnderecoRepositoryFactory;
-use EmailMarketing\Infrastructure\Service\AuthServiceFactory;
-use EmailMarketing\Infrastructure\Service\FlashMessageFactory;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\Container\ApplicationFactory;
-use Zend\Expressive\Helper;
+use EmailMarketing\Domain\{
+    Persistence\ClienteRepositoryInterface,
+    Persistence\ContatoRepositoryInterface,
+    Persistence\EnderecoRepositoryInterface,
+    Service\AuthInterface,
+    Service\ClienteServiceFactory,
+    Service\ClienteServiceInterface,
+    Service\FlashMessageInterface
+};
+use EmailMarketing\Infrastructure\{
+    Persistence\Doctrine\Repository\ClienteRepositoryFactory,
+    Persistence\Doctrine\Repository\ContatoRepositoryFactory,
+    Persistence\Doctrine\Repository\EnderecoRepositoryFactory,  
+    Service\AuthServiceFactory,
+    Service\FlashMessageFactory
+};
+use Zend\{
+    Authentication\AuthenticationService,
+    Authentication\AuthenticationServiceInterface,
+    Expressive\Application,
+    Expressive\Container\ApplicationFactory,
+    Expressive\Helper
+};
+
 
 return [
     // Provides application-wide services.

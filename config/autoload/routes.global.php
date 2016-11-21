@@ -1,16 +1,19 @@
 <?php
 
-use EmailMarketing\Application\Action\Cliente;
-use EmailMarketing\Application\Action\Contato;
-use EmailMarketing\Application\Action\HomePageAction;
-use EmailMarketing\Application\Action\HomePageFactory;
-use EmailMarketing\Application\Action\LoginPageAction;
-use EmailMarketing\Application\Action\LoginPageFactory;
-use EmailMarketing\Application\Action\LogoutAction;
-use EmailMarketing\Application\Action\LogoutFactory;
-use EmailMarketing\Application\Action\PingAction;
-use EmailMarketing\Application\Action\TestePageAction;
-use EmailMarketing\Application\Action\TestePageFactory;
+use EmailMarketing\Application\Action\{
+    Cliente,
+    Contato,
+    HomePageAction,
+    HomePageFactory,
+    LoginPageAction,
+    LoginPageFactory,
+    LogoutAction,
+    LogoutFactory,
+    PingAction,
+    TestePageAction,
+    TestePageFactory
+};
+
 use Zend\Expressive\Router\AuraRouter;
 use Zend\Expressive\Router\RouterInterface;
 
