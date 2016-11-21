@@ -9,7 +9,7 @@ use Interop\Container\ContainerInterface;
 class ClienteRepositoryFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : ClienteRepository
     {
         /** @var EntityManager $entityManager */
         $entityManager = $container->get(EntityManager::class);

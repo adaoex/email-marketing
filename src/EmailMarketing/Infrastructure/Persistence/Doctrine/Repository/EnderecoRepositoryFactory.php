@@ -9,7 +9,7 @@ use Interop\Container\ContainerInterface;
 class EnderecoRepositoryFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): EnderecoRepository
     {
         /** @var EntityManager $entityManager */
         $entityManager = $container->get(EntityManager::class);

@@ -1,5 +1,5 @@
 <?php
-
+declare (strict_types = 1);
 namespace EmailMarketing\Domain\Service;
 
 interface FlashMessageInterface
@@ -10,9 +10,9 @@ interface FlashMessageInterface
     const MESSAGE_WARNING   = 2;
     const MESSAGE_INFO      = 3;
     
-    public function setNamespace($name);
+    public function setNamespace(string $name);
 
-    public function setMessage($key, $value);
+    public function setMessage($key, string $value);
 
     public function getMessage($key);
 }

@@ -9,7 +9,7 @@ use Interop\Container\ContainerInterface;
 class ContatoFormFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : ContatoForm
     {
         return new ContatoForm(
                 $container->get(EntityManager::class)

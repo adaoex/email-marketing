@@ -9,7 +9,7 @@ use Zend\View\HelperPluginManager;
 
 class TwigMiddlewareFactory
 {
-    public function __invoke( ContainerInterface $container )
+    public function __invoke( ContainerInterface $container ) : TwigMiddleware
     {
         /** @var TwigRenderer Twig */
         $twigRenderer = $container->get( TemplateRendererInterface::class );

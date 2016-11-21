@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 class ClienteServiceFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : ClienteService
     {
         $clienteReposotory = $container->get(ClienteRepositoryInterface::class);
         return new ClienteService($clienteReposotory);

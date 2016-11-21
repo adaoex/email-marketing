@@ -9,7 +9,7 @@ use Interop\Container\ContainerInterface;
 class ClienteFormFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : ClienteForm
     {
         return new ClienteForm(
                 $container->get(EntityManager::class)

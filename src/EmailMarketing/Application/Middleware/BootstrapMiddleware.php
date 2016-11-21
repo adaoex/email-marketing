@@ -35,7 +35,8 @@ class BootstrapMiddleware
 
     protected function spoofingMethod(ServerRequestInterface $request){
         $data = $request->getParsedBody();
-        $method = isset($data['_method'])? strtoupper($data['_method']):'';
+        $method = $data['_method'] ?? '';
+        $method = strtoupper($method);
         if (in_array($method, ['PUT', 'DELETE']) ){
             $request = $request->withMethod($method);
         }

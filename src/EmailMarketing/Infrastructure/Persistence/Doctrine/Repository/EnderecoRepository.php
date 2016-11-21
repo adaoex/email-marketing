@@ -4,11 +4,12 @@ namespace EmailMarketing\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
+use EmailMarketing\Domain\Entity\Endereco;
 
 class EnderecoRepository extends EntityRepository implements EnderecoRepositoryInterface
 {
 
-    public function create($entity)
+    public function create($entity): Endereco
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
@@ -20,7 +21,7 @@ class EnderecoRepository extends EntityRepository implements EnderecoRepositoryI
         
     }
 
-    public function update($entity)
+    public function update($entity): Endereco
     {
         
     }
