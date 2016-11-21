@@ -9,7 +9,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class TestePageFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : TestePageAction
     {
         $template = ($container->has(TemplateRendererInterface::class)) 
                 ? $container->get(TemplateRendererInterface::class) 

@@ -12,7 +12,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class ContatoUpdatePageFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ContatoUpdatePageAction
     {
         return new ContatoUpdatePageAction(
                 $container->get(ContatoRepositoryInterface::class),

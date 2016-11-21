@@ -10,7 +10,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class LoginPageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): LoginPageAction
     {
         $router   = $container->get(RouterInterface::class);
         $template = $container->get(TemplateRendererInterface::class);

@@ -10,7 +10,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class ContatoListPageFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ContatoListPageAction
     {
         return new ContatoListPageAction(
                 $container->get(ContatoRepositoryInterface::class),

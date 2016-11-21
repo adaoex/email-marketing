@@ -8,7 +8,7 @@ use Zend\Expressive\Router\RouterInterface;
 
 class LogoutFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): LogoutAction
     {
         $router   = $container->get(RouterInterface::class);
         $authService = $container->get(AuthInterface::class);

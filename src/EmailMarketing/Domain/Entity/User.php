@@ -41,19 +41,19 @@ class User
         return $this;
     }
 
-    public function setNome($nome)
+    public function setNome(string $nome)
     {
         $this->nome = $nome;
         return $this;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
         return $this;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
         return $this;
@@ -64,7 +64,7 @@ class User
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(string $plainPassword)
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -72,9 +72,7 @@ class User
     
     public function generatePassword()
     {
-        $password = $this->getPlainPassword() 
-                ? $this->getPlainPassword() 
-                : uniqid();
+        $password = $this->getPlainPassword() ?? uniqid();
         $this->setPassword(password_hash($password, PASSWORD_BCRYPT));
     }
     

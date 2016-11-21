@@ -12,7 +12,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class ContatoDeletePageFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ContatoDeletePageAction
     {
         return new ContatoDeletePageAction(
                 $container->get(ContatoRepositoryInterface::class),

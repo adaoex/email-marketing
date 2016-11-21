@@ -13,7 +13,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class ClienteCreatePageFactory
 {
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ClienteCreatePageAction
     {
         return new ClienteCreatePageAction(
                 $container->get(ClienteRepositoryInterface::class),
