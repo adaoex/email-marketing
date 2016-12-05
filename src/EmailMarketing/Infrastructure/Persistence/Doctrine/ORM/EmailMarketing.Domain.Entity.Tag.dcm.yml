@@ -1,0 +1,18 @@
+## EmailMarketing.Domain.Entity.Tag.dcm.yml
+EmailMarketing\Domain\Entity\Tag:
+    type: entity
+    repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\TagRepository
+    table: tags
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields: 
+        nome:
+            type: string
+            length: 255
+    manyToMany:
+        contatos:
+            targetEntity: EmailMarketing\Domain\Entity\Contato
+            inversedBy: tags

@@ -1,18 +1,18 @@
 {% extends '@layout/default.html.twig' %}
 
 {% block title %}
-    Lista de Contatos - {{ parent() }}
+    Lista de Tags - {{ parent() }}
 {% endblock %}
 
 {% block page_header %}
-    Listagem de Contatos
+    Listagem de Tags
 {% endblock %}
 
 {% block content %}
     <div class="row" >
         <div class="box" >
             <div class="box-header" >
-                <a class="btn btn-app" href="{{ url('contato.create') }}" >
+                <a class="btn btn-app" href="{{ url('tag.create') }}" >
                     <i class="fa fa-plus" ></i>
                     Novo
                 </a>
@@ -23,23 +23,21 @@
                         <tr>
                             <th style="width: 10px;" >ID</th>
                             <th>Nome</th>
-                            <th>E-mail</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for contato in contatos %}
+                    {% for tag in tags %}
                         <tr>
-                            <td>{{ contato.id }}</td>
-                            <td>{{ contato.nome }}</td>
-                            <td>{{ contato.email }}</td>
+                            <td>{{ tag.id }}</td>
+                            <td>{{ tag.nome }}</td>
                             <td>
-                                <a href="{{ url('contato.update', {id: contato.id}) }}" 
+                                <a href="{{ url('tag.update', {id: tag.id}) }}" 
                                    class="btn btn-default">
                                     <i class="fa fa-edit" ></i>
                                     Editar
                                 </a>
-                                <a href="{{ url('contato.delete', {id: contato.id}) }}" 
+                                <a href="{{ url('tag.delete', {id: tag.id}) }}" 
                                    class="btn btn-danger">
                                     <i class="fa fa-remove" ></i>
                                     Excluir

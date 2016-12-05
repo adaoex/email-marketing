@@ -3,6 +3,7 @@
 use EmailMarketing\Application\Action\{
     Cliente,
     Contato,
+    Tag,
     HomePageAction,
     HomePageFactory,
     LoginPageAction,
@@ -36,6 +37,10 @@ return [
             Contato\ContatoCreatePageAction::class => Contato\Factory\ContatoCreatePageFactory::class,
             Contato\ContatoUpdatePageAction::class => Contato\Factory\ContatoUpdatePageFactory::class,
             Contato\ContatoDeletePageAction::class => Contato\Factory\ContatoDeletePageFactory::class,
+            Tag\TagListPageAction::class => Tag\Factory\TagListPageFactory::class,
+            Tag\TagCreatePageAction::class => Tag\Factory\TagCreatePageFactory::class,
+            Tag\TagUpdatePageAction::class => Tag\Factory\TagUpdatePageFactory::class,
+            Tag\TagDeletePageAction::class => Tag\Factory\TagDeletePageFactory::class,
         ],
     ],
 
@@ -131,6 +136,40 @@ return [
             'name' => 'contato.delete',
             'path' => '/admin/contato/{id}/delete',
             'middleware' => Contato\ContatoDeletePageAction::class,
+            'allowed_methods' => ['GET','DELETE'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        [
+            'name' => 'tag.list',
+            'path' => '/admin/tags',
+            'middleware' => Tag\TagListPageAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'tag.create',
+            'path' => '/admin/tag/create',
+            'middleware' => Tag\TagCreatePageAction::class,
+            'allowed_methods' => ['GET','POST'],
+        ],
+        [
+            'name' => 'tag.update',
+            'path' => '/admin/tag/update/{id}',
+            'middleware' => Tag\TagUpdatePageAction::class,
+            'allowed_methods' => ['GET','PUT'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        [
+            'name' => 'tag.delete',
+            'path' => '/admin/tag/{id}/delete',
+            'middleware' => Tag\TagDeletePageAction::class,
             'allowed_methods' => ['GET','DELETE'],
             'options' => [
                 'tokens' => [

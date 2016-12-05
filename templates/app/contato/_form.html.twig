@@ -12,4 +12,10 @@
         {{ formElement(form.get('email')) }}
         {{ messages_email | raw }}
     </div>
+    {% set messages_tags = formElementErrors(form.get('tags'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_tags ? 'has-error' }}">
+        {{ formLabel(form.get('tags'), 'Tags') }}
+        {{ formElement(form.get('tags')) }}
+        {{ messages_tags | raw }}
+    </div>
 </div>

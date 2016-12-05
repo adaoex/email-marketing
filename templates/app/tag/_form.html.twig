@@ -1,0 +1,10 @@
+<div class="box-body" >
+    {{ formHidden( form.get('csrf')) }}
+    {% set messages_nome = formElementErrors(form.get('nome'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_nome ? 'has-error' }}">
+        {{ formLabel(form.get('nome')) }}
+        {{ formElement(form.get('nome')) }}
+        {{ messages_nome | raw }}
+    </div>
+    
+</div>

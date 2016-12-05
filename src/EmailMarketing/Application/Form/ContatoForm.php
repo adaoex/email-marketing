@@ -3,24 +3,35 @@
 namespace EmailMarketing\Application\Form;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
-use EmailMarketing\Application\InputFilter\ContatoInputFilter;
-use EmailMarketing\Domain\Entity\Contato;
+use DoctrineModule\Form\Element\ObjectSelect;
+use DoctrineModule\Persistence\ObjectManagerAwareInterface;
+use EmailMarketing\Domain\Entity\Tag;
 use Zend\Form\Element;
 use Zend\Form\Form;
 
-class ContatoForm extends Form
+class ContatoForm extends Form implements ObjectManagerAwareInterface
 {
-    public function __construct(ObjectManager $objectManager)
+        
+    private $objectManager;
+    
+    public function getObjectManager(): ObjectManager
+    {
+        return $this->objectManager;
+    }
+
+    public function setObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
+
+    public function __construct()
     {
         parent::__construct('contato');
-
-        $this->setHydrator(new DoctrineHydrator($objectManager))
-                ->setAttribute('method', 'post')
-                ->setObject(new Contato());
-
-        $this->setInputFilter(new ContatoInputFilter());
-
+    }
+    
+    public function init()
+    {
+        
         $this->add(array(
             'type' => Element\Csrf::class,
             'name' => 'csrf',
@@ -49,5 +60,19 @@ class ContatoForm extends Form
             ]
         ]);
 
+         $this->add([
+            'name' => 'tags',
+            'type' => ObjectSelect::class,
+            'attributes' => [
+                'multiple' => 'multiple'
+            ],
+            'options' => [
+                'object_manager' => $this->getObjectManager(),
+                'target_class'   => Tag::class,
+                'property'       => 'nome',
+            ],
+        ]);
+        
     }
+
 }

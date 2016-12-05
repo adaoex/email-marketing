@@ -15,3 +15,15 @@ EmailMarketing\Domain\Entity\Contato:
         email:
             type: string
             length: 255
+    manyToMany:
+        tags:
+            targetEntity: EmailMarketing\Domain\Entity\Tag
+            mappedBy: contatos
+            joinTable:
+                name: contatos_tags
+                joinColumns:
+                    contato_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    tag_id:
+                        referencedColumnName: id

@@ -1,4 +1,4 @@
-## EmailMarketing.Domain.Entity.Contato.dcm.yml
+## EmailMarketing.Domain.Entity.User.dcm.yml
 EmailMarketing\Domain\Entity\User:
     type: entity
     repositoryClass: EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\UserRepository

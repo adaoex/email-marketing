@@ -5,7 +5,6 @@ namespace EmailMarketing\Infrastructure\Service;
 use EmailMarketing\Domain\Service\AuthInterface;
 use Zend\Authentication\Adapter\ValidatableAdapterInterface;
 use Zend\Authentication\AuthenticationServiceInterface;
-use EmailMarketing\Domain\Entity\User;
 
 class AuthService implements AuthInterface
 {
@@ -32,7 +31,7 @@ class AuthService implements AuthInterface
         $this->authenticationService->clearIdentity();
     }
 
-    public function getUser() : User
+    public function getUser()
     {
         $this->authenticationService->getIdentity();
     }

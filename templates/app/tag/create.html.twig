@@ -1,11 +1,11 @@
 {% extends '@layout/default.html.twig' %}
 
 {% block title %}
-    Cadastro de Contato - {{ parent() }}
+    Cadastro de Tag - {{ parent() }}
 {% endblock %}
 
 {% block page_header %}
-    Cadastro de Contato
+    Cadastro de Tag
 {% endblock %}
 
 {% block content %}
@@ -13,12 +13,6 @@
     {% set nome = form.get('nome') %}
     {% do nome.setAttribute('class','form-control') %}
 
-    {% set email = form.get('email') %}
-    {% do email.setAttribute('class','form-control') %}
-    
-    {% set tags = form.get('tags') %}
-    {% do tags.setAttribute('class','form-control') %}
-    
     {% do form.prepare() %}
     
     <div class="row" >
@@ -27,7 +21,7 @@
                 <div class="box-body" >
                     
                     {{ form().openTag(form) | raw }}
-                    {% include '@app/contato/_form.html.twig' %}
+                    {% include '@app/tag/_form.html.twig' %}
                     
                     <div class="box-footer" >
                         <button value="" class="btn btn-primary" id="submit" type="submit">

@@ -15,6 +15,7 @@ $forms = [
             Form\ClienteForm::class => Form\Factory\ClienteFormFactory::class,
             Form\ContatoForm::class => Form\Factory\ContatoFormFactory::class,
             Form\LoginForm::class => Form\Factory\LoginFormFactory::class,
+            Form\TagForm::class => Form\Factory\TagFormFactory::class,
         ],
         'aliases' => [
         ],
