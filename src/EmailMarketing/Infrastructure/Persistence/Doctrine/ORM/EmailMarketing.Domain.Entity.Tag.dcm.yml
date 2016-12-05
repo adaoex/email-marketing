@@ -16,3 +16,6 @@ EmailMarketing\Domain\Entity\Tag:
         contatos:
             targetEntity: EmailMarketing\Domain\Entity\Contato
             inversedBy: tags
+        campanhas:
+            targetEntity: EmailMarketing\Domain\Entity\Campanha
+            inversedBy: tags

@@ -19,6 +19,7 @@ class TagFixture extends AbstractFixture implements FixtureInterface, OrderedFix
             $entity = new Tag();
             $entity->setNome( $faker->city );
             $this->addContatos($entity);
+            $this->addCampanhas($entity);
             $manager->persist($entity);
         }
         $manager->flush();
@@ -40,7 +41,25 @@ class TagFixture extends AbstractFixture implements FixtureInterface, OrderedFix
             /*if ( $tag->getContatos()->contains($contato) ){
                 $tag->addContato($contato);
             }*/
-            $tag->addContato($contato);
+            $tag->getContatos()->add($contato);
+        }
+    }
+    
+    public function addCampanhas(Tag $tag)
+    {
+        $numCustumers = rand(1, 5);
+        foreach (range(1, $numCustumers) as $value) {
+            $index = rand(0, 99);
+            $campanha = $this->getReference("campanha-$index");
+            if ( $tag->getCampanhas()->exists(function($key, $item) use ($campanha){
+                return $campanha->getId() == $item->getId();    
+            }))
+            {
+                $index = rand(0, 99);
+                $campanha = $this->getReference("campanha-$index");    
+            }
+            
+            $tag->getCampanhas()->add($campanha);
         }
     }
     

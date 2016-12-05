@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace EmailMarketing\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;

@@ -1,20 +1,18 @@
 <?php
 
-use EmailMarketing\Application\Action\{
-    Cliente,
-    Contato,
-    Tag,
-    HomePageAction,
-    HomePageFactory,
-    LoginPageAction,
-    LoginPageFactory,
-    LogoutAction,
-    LogoutFactory,
-    PingAction,
-    TestePageAction,
-    TestePageFactory
-};
-
+use EmailMarketing\Application\Action\Campanha;
+use EmailMarketing\Application\Action\Cliente;
+use EmailMarketing\Application\Action\Contato;
+use EmailMarketing\Application\Action\HomePageAction;
+use EmailMarketing\Application\Action\HomePageFactory;
+use EmailMarketing\Application\Action\LoginPageAction;
+use EmailMarketing\Application\Action\LoginPageFactory;
+use EmailMarketing\Application\Action\LogoutAction;
+use EmailMarketing\Application\Action\LogoutFactory;
+use EmailMarketing\Application\Action\PingAction;
+use EmailMarketing\Application\Action\Tag;
+use EmailMarketing\Application\Action\TestePageAction;
+use EmailMarketing\Application\Action\TestePageFactory;
 use Zend\Expressive\Router\AuraRouter;
 use Zend\Expressive\Router\RouterInterface;
 
@@ -41,6 +39,10 @@ return [
             Tag\TagCreatePageAction::class => Tag\Factory\TagCreatePageFactory::class,
             Tag\TagUpdatePageAction::class => Tag\Factory\TagUpdatePageFactory::class,
             Tag\TagDeletePageAction::class => Tag\Factory\TagDeletePageFactory::class,
+            Campanha\CampanhaListPageAction::class => Campanha\Factory\CampanhaListPageFactory::class,
+            Campanha\CampanhaCreatePageAction::class => Campanha\Factory\CampanhaCreatePageFactory::class,
+            Campanha\CampanhaDeletePageAction::class => Campanha\Factory\CampanhaDeletePageFactory::class,
+            Campanha\CampanhaUpdatePageAction::class => Campanha\Factory\CampanhaUpdatePageFactory::class,
         ],
     ],
 
@@ -170,6 +172,41 @@ return [
             'name' => 'tag.delete',
             'path' => '/admin/tag/{id}/delete',
             'middleware' => Tag\TagDeletePageAction::class,
+            'allowed_methods' => ['GET','DELETE'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        
+        [
+            'name' => 'campanha.list',
+            'path' => '/admin/campanhas',
+            'middleware' => Campanha\CampanhaListPageAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'campanha.create',
+            'path' => '/admin/campanha/create',
+            'middleware' => Campanha\CampanhaCreatePageAction::class,
+            'allowed_methods' => ['GET','POST'],
+        ],
+        [
+            'name' => 'campanha.update',
+            'path' => '/admin/campanha/update/{id}',
+            'middleware' => Campanha\CampanhaUpdatePageAction::class,
+            'allowed_methods' => ['GET','PUT'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        [
+            'name' => 'campanha.delete',
+            'path' => '/admin/campanha/{id}/delete',
+            'middleware' => Campanha\CampanhaDeletePageAction::class,
             'allowed_methods' => ['GET','DELETE'],
             'options' => [
                 'tokens' => [

@@ -4,6 +4,7 @@ use EmailMarketing\Application\Form;
 use EmailMarketing\Infrastructure\View\HelperPluginManagerFactory;
 use Zend\Form\ConfigProvider;
 use Zend\Stdlib\ArrayUtils;
+use Zend\View\Helper\Service\IdentityFactory;
 use Zend\View\HelperPluginManager;
 
 $forms = [
@@ -16,6 +17,7 @@ $forms = [
             Form\ContatoForm::class => Form\Factory\ContatoFormFactory::class,
             Form\LoginForm::class => Form\Factory\LoginFormFactory::class,
             Form\TagForm::class => Form\Factory\TagFormFactory::class,
+            Form\CampanhaForm::class => Form\Factory\CampanhaFormFactory::class,
         ],
         'aliases' => [
         ],
@@ -24,7 +26,7 @@ $forms = [
         'invokables' => [
         ],
         'factories' => [
-            'identity' => \Zend\View\Helper\Service\IdentityFactory::class,
+            'identity' => IdentityFactory::class,
         ],
         'aliases' => [
         ],

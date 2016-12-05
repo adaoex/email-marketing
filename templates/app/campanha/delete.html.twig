@@ -1,0 +1,47 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}
+    Cadastro de Contato - {{ parent() }}
+{% endblock %}
+
+{% block page_header %}
+    Cadastro de Contato
+{% endblock %}
+
+{% block content %}
+    
+    {% set nome = form.get('nome') %}
+    {% do nome.setAttribute('class','form-control') %}
+
+    {% set email = form.get('email') %}
+    {% do email.setAttribute('class','form-control') %}
+    
+    {% do form.prepare() %}
+    
+    <div class="row" >
+        <div class="col-md-8">
+            <div class="box box-primary" >
+                <div class="box-body" >
+                    
+                    {{ form().openTag(form) | raw }}
+                    <fieldset disabled >
+                    {% include '@app/contato/_form.html.twig' %}
+                    </fieldset>
+                    {{ form().closeTag() | raw }}
+                    
+                    <form name="form" role="form" method="post" 
+                          action="{{ url('contato.delete', {id: form.getObject().id}) }}" >
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <div class="box-footer" >
+                            <button class="btn btn-danger" type="submit" >
+                                <i class="glyphicon glyphicon-remove" ></i>
+                                Excluir
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

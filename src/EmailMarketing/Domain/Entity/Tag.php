@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace EmailMarketing\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,22 +9,22 @@ class Tag
 {
 
     private $id;
+    
     private $nome;
+    
     private $contatos;
+    
+    private $campanhas;
 
     public function __construct()
     {
         $this->contatos = new ArrayCollection();
+        $this->campanhas = new ArrayCollection();
     }
 
     public function getContatos() : Collection
     {
         return $this->contatos;
-    }
-
-    public function addContato(Contato $contato)
-    {
-        $this->contatos->add($contato);
     }
 
     public function addContatos(\Doctrine\Common\Collections\Collection $contatos)
@@ -38,6 +38,25 @@ class Tag
     {
         foreach ($contatos as $contato) {
             $this->contatos->removeElement($contato);
+        }
+    }
+    
+    public function getCampanhas()
+    {
+        return $this->campanhas;
+    }
+    
+    public function addCampanhas(\Doctrine\Common\Collections\Collection $campnhas)
+    {
+        foreach ($campnhas as $campnha) {
+            $this->campanhas->add($campnha);
+        }
+    }
+    
+    public function removeCampanhas(\Doctrine\Common\Collections\Collection $campnhas)
+    {
+        foreach ($campnhas as $campnha) {
+            $this->campanhas->removeElement($campnha);
         }
     }
     

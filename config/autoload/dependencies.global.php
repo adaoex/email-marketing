@@ -6,6 +6,7 @@ use EmailMarketing\Domain\{
     Persistence\ContatoRepositoryInterface,
     Persistence\EnderecoRepositoryInterface,
     Persistence\TagRepositoryInterface,
+    Persistence\CampanhaRepositoryInterface,
     Service\AuthInterface,
     Service\ClienteServiceFactory,
     Service\ClienteServiceInterface,
@@ -18,6 +19,7 @@ use EmailMarketing\Infrastructure\{
     Persistence\Doctrine\Repository\ContatoRepositoryFactory,
     Persistence\Doctrine\Repository\EnderecoRepositoryFactory,  
     Persistence\Doctrine\Repository\TagRepositoryFactory,  
+    Persistence\Doctrine\Repository\CampanhaRepositoryFactory,  
     Service\AuthServiceFactory,
     Service\FlashMessageFactory
 };
@@ -52,6 +54,7 @@ return [
             ContatoRepositoryInterface::class => ContatoRepositoryFactory::class,
             TagRepositoryInterface::class => TagRepositoryFactory::class,
             TagServiceInterface::class => TagServiceFactory::class,
+            CampanhaRepositoryInterface::class => CampanhaRepositoryFactory::class,
             FlashMessageInterface::class => FlashMessageFactory::class,
             'doctrine:fixtures_cmd:load'   => FixtureFactory::class,
             AuthInterface::class => AuthServiceFactory::class,
