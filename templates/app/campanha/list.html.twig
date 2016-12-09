@@ -23,6 +23,7 @@
                         <tr>
                             <th style="width: 10px;" >ID</th>
                             <th>Nome</th>
+                            <th>Assunto</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -31,7 +32,13 @@
                         <tr>
                             <td>{{ campanha.id }}</td>
                             <td>{{ campanha.nome }}</td>
+                            <td>{{ campanha.assunto }}</td>
                             <td>
+                                <a href="{{ url('campanha.sender', {id: campanha.id}) }}" 
+                                   class="btn btn-default">
+                                    <i class="fa fa-edit" ></i>
+                                    Enviar
+                                </a>
                                 <a href="{{ url('campanha.update', {id: campanha.id}) }}" 
                                    class="btn btn-default">
                                     <i class="fa fa-edit" ></i>

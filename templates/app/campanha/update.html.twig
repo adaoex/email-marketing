@@ -15,6 +15,9 @@
     {% set nome = form.get('nome') %}
     {% do nome.setAttribute('class','form-control') %}
 
+    {% set assunto = form.get('assunto') %}
+    {% do assunto.setAttribute('class','form-control') %}
+    
     {% set template = form.get('template') %}
     {% do template.setAttribute('class','form-control') %}
     
@@ -41,4 +44,21 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    tinymce.init({
+            selector: 'textarea',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar1: 'bold italic | fontselect |  fontsizeselect | print preview media | forecolor backcolor emoticons',
+            toolbar2: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            height: 500
+        });
+</script>
 {% endblock %}

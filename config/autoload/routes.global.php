@@ -43,6 +43,7 @@ return [
             Campanha\CampanhaCreatePageAction::class => Campanha\Factory\CampanhaCreatePageFactory::class,
             Campanha\CampanhaDeletePageAction::class => Campanha\Factory\CampanhaDeletePageFactory::class,
             Campanha\CampanhaUpdatePageAction::class => Campanha\Factory\CampanhaUpdatePageFactory::class,
+            Campanha\CampanhaSenderPageAction::class => Campanha\Factory\CampanhaSenderPageFactory::class,
         ],
     ],
 
@@ -208,6 +209,17 @@ return [
             'path' => '/admin/campanha/{id}/delete',
             'middleware' => Campanha\CampanhaDeletePageAction::class,
             'allowed_methods' => ['GET','DELETE'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        [
+            'name' => 'campanha.sender',
+            'path' => '/admin/campanha/{id}/sender',
+            'middleware' => Campanha\CampanhaSenderPageAction::class,
+            'allowed_methods' => ['GET','POST'],
             'options' => [
                 'tokens' => [
                     'id' => '\d+'

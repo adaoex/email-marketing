@@ -6,6 +6,12 @@
         {{ formElement(form.get('nome')) }}
         {{ messages_nome | raw }}
     </div>
+    {% set messages_assunto = formElementErrors(form.get('assunto'), {class: 'help-block'}) %}
+    <div class="form-group {{ messages_assunto ? 'has-error' }}">
+        {{ formLabel(form.get('assunto')) }}
+        {{ formElement(form.get('assunto')) }}
+        {{ messages_assunto | raw }}
+    </div>
     {% set messages_template = formElementErrors(form.get('template'), {class: 'help-block'}) %}
     <div class="form-group {{ messages_template ? 'has-error' }}">
         {{ formLabel(form.get('template')) }}

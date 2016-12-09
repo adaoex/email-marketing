@@ -49,6 +49,17 @@ class CampanhaForm extends Form implements ObjectManagerAwareInterface
         ]);
         
         $this->add([
+            'name' => 'assunto',
+            'type' => Element\Text::class,
+            'options' => [
+                'label' => 'Assunto'
+            ],
+            'attributes' => [
+                'id' => 'assunto'
+            ]
+        ]);
+        
+        $this->add([
             'name' => 'template',
             'type' => Element\Textarea::class,
             'options' => [

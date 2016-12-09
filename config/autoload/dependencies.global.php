@@ -12,7 +12,8 @@ use EmailMarketing\Domain\{
     Service\ClienteServiceInterface,
     Service\TagServiceInterface,
     Service\TagServiceFactory,
-    Service\FlashMessageInterface
+    Service\FlashMessageInterface,
+    Service\CampanhaEmailSenderInterface
 };
 use EmailMarketing\Infrastructure\{
     Persistence\Doctrine\Repository\ClienteRepositoryFactory,
@@ -21,7 +22,9 @@ use EmailMarketing\Infrastructure\{
     Persistence\Doctrine\Repository\TagRepositoryFactory,  
     Persistence\Doctrine\Repository\CampanhaRepositoryFactory,  
     Service\AuthServiceFactory,
-    Service\FlashMessageFactory
+    Service\FlashMessageFactory,
+    Service\MailgunFactory,
+    Service\CampanhaEmailSenderFactory
 };
 use Zend\{
     Authentication\AuthenticationService,
@@ -58,6 +61,8 @@ return [
             FlashMessageInterface::class => FlashMessageFactory::class,
             'doctrine:fixtures_cmd:load'   => FixtureFactory::class,
             AuthInterface::class => AuthServiceFactory::class,
+            \Mailgun\Mailgun::class => MailgunFactory::class,
+            CampanhaEmailSenderInterface::class => CampanhaEmailSenderFactory::class,
         ],
         'aliases' => [
             'Configuration' => 'config', //Doctrine needs a service called Configuration

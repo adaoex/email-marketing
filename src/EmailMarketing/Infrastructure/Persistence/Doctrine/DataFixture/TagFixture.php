@@ -27,39 +27,22 @@ class TagFixture extends AbstractFixture implements FixtureInterface, OrderedFix
 
     public function addContatos(Tag $tag)
     {
-        $numCustumers = rand(1, 5);
-        foreach (range(1, $numCustumers) as $value) {
-            $index = rand(0, 99);
-            $contato = $this->getReference("contato-$index");
-            if ( $tag->getContatos()->exists(function($key, $item) use ($contato){
-                return $contato->getId() == $item->getId();    
-            }))
-            {
-                $index = rand(0, 99);
-                $contato = $this->getReference("contato-$index");    
-            }
-            /*if ( $tag->getContatos()->contains($contato) ){
-                $tag->addContato($contato);
-            }*/
+        $indexCustumers = array_rand(range(0,3), rand(2, 4));
+        foreach ($indexCustumers as $value) {
+            $contato = $this->getReference("contato-$value");
             $tag->getContatos()->add($contato);
         }
     }
     
     public function addCampanhas(Tag $tag)
     {
-        $numCustumers = rand(1, 5);
-        foreach (range(1, $numCustumers) as $value) {
-            $index = rand(0, 99);
-            $campanha = $this->getReference("campanha-$index");
-            if ( $tag->getCampanhas()->exists(function($key, $item) use ($campanha){
-                return $campanha->getId() == $item->getId();    
-            }))
-            {
-                $index = rand(0, 99);
-                $campanha = $this->getReference("campanha-$index");    
+        $indexCampanhas = array_rand(range(0,9), rand(2, 4));
+        foreach ($indexCampanhas as $value) {
+            $campanha = $this->getReference("campanha-$value");
+            if ( $campanha->getTags()->count() < 2 ){
+                $campanha->getTags()->add($tag);
+                $tag->getCampanhas()->add($campanha);
             }
-            
-            $tag->getCampanhas()->add($campanha);
         }
     }
     

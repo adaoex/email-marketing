@@ -36,12 +36,11 @@
                     {{ form().closeTag() | raw }}
                     
                     <form name="form" role="form" method="post" 
-                          action="{{ url('campanha.delete', {id: form.getObject().id}) }}" >
-                        <input type="hidden" name="_method" value="DELETE" />
+                          action="{{ url('campanha.sender', {id: form.getObject().id}) }}" >
                         <div class="box-footer" >
-                            <button class="btn btn-danger" type="submit" >
+                            <button class="btn btn-primary" type="submit" >
                                 <i class="glyphicon glyphicon-remove" ></i>
-                                Excluir
+                                Enviar
                             </button>
                         </div>
                     </form>

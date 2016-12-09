@@ -13,18 +13,28 @@ class ContatoFixture extends AbstractFixture implements FixtureInterface, Ordere
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
+        //$faker = Factory::create();
         
-        foreach (range(1, 100) as $key => $value){
+        foreach ( $this->getData() as $key => $value){
             $contato = new Contato();
-            $contato->setNome( $faker->name . ' ' . $faker->lastName )
-                ->setEmail( $faker->email );
+            $contato->setNome( $value['nome'] )
+                ->setEmail( $value['email'] );
             $manager->persist($contato);
             $this->setReference("contato-$key", $contato);
         }
         $manager->flush();
     }
 
+    public function getData()
+    {
+        return [
+            ['nome'=>'Adão 1', 'email'=>'adao@adao.eti.br'],
+            ['nome'=>'Adão 2', 'email'=>'flexlabs@flexlabs.website'],
+            ['nome'=>'Adão 3', 'email'=>'contato@flexlabs.website'],
+            ['nome'=>'Adão 4', 'email'=>'adao.dba@gmail.com'],
+        ];
+    }
+    
     /* prioridade crescente */
     public function getOrder(): int
     {

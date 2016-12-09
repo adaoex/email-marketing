@@ -12,6 +12,9 @@ EmailMarketing\Domain\Entity\Campanha:
         nome:
             type: string
             length: 255
+        assunto:
+            type: string
+            length: 255
         template:
             type: text
     manyToMany:

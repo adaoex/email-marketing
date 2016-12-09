@@ -15,10 +15,13 @@ class CampanhaFixture extends AbstractFixture implements FixtureInterface, Order
     {
         $faker = Factory::create();
         
-        foreach (range(1, 100) as $key => $value){
+        foreach (range(1, 10) as $key => $value){
             $campanha = new Campanha();
             $campanha->setNome( $faker->country )
-                ->setTemplate( "" );
+                    ->setAssunto($faker->sentence(3))
+                ->setTemplate( "<h2>Faker com Mailgun</h2>"
+                        . "<p>{$faker->paragraph(2)}</p>"
+                        . "<p><a href='http://www.adao.eti.br' >Adao Gonçalves</a></p>" );
             $manager->persist($campanha);
             $this->setReference("campanha-$key", $campanha);
         }

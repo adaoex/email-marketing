@@ -12,6 +12,8 @@ class Campanha
     
     private $nome;
     
+    private $assunto;
+    
     private $template;
     
     private $tags;
@@ -74,6 +76,17 @@ class Campanha
     public function setTemplate(string $template)
     {
         $this->template = $template;
+        return $this;
+    }
+
+    public function getAssunto()
+    {
+        return $this->assunto;
+    }
+
+    public function setAssunto($assunto)
+    {
+        $this->assunto = $assunto;
         return $this;
     }
 
