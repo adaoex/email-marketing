@@ -7,16 +7,16 @@ use Interop\Container\ContainerInterface;
 use Mailgun\Mailgun;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CampanhaEmailSenderFactory
+class CampanhaReportFactory
 {
 
-    public function __invoke(ContainerInterface $container) : CampanhaEmailSender
+    public function __invoke(ContainerInterface $container) : CampanhaReport
     {
         $templateRender = $container->get(TemplateRendererInterface::class);
         $mailgun =  $container->get(Mailgun::class);
         $mailgunConfig = $container->get('config')['mailgun'];
         $repository = $container->get(ContatoRepositoryInterface::class);
-        return new CampanhaEmailSender($templateRender, $mailgun, $mailgunConfig, $repository);
+        return new CampanhaReport($templateRender, $mailgun, $mailgunConfig, $repository);
     }
 
 }

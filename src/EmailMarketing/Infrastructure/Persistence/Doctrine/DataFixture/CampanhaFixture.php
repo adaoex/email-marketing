@@ -18,8 +18,9 @@ class CampanhaFixture extends AbstractFixture implements FixtureInterface, Order
         foreach (range(1, 10) as $key => $value){
             $campanha = new Campanha();
             $campanha->setNome( $faker->country )
-                    ->setAssunto($faker->sentence(3))
+                    ->setAssunto( "%recipient.full_name%, ". $faker->sentence(2))
                 ->setTemplate( "<h2>Faker com Mailgun</h2>"
+                        . "<p>%recipient.full_name%</p>"
                         . "<p>{$faker->paragraph(2)}</p>"
                         . "<p><a href='http://www.adao.eti.br' >Adao Gonçalves</a></p>" );
             $manager->persist($campanha);

@@ -44,6 +44,7 @@ return [
             Campanha\CampanhaDeletePageAction::class => Campanha\Factory\CampanhaDeletePageFactory::class,
             Campanha\CampanhaUpdatePageAction::class => Campanha\Factory\CampanhaUpdatePageFactory::class,
             Campanha\CampanhaSenderPageAction::class => Campanha\Factory\CampanhaSenderPageFactory::class,
+            Campanha\CampanhaReportAction::class => Campanha\Factory\CampanhaReportFactory::class,
         ],
     ],
 
@@ -220,6 +221,17 @@ return [
             'path' => '/admin/campanha/{id}/sender',
             'middleware' => Campanha\CampanhaSenderPageAction::class,
             'allowed_methods' => ['GET','POST'],
+            'options' => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ],
+        ],
+        [
+            'name' => 'campanha.report',
+            'path' => '/admin/campanha/{id}/report',
+            'middleware' => Campanha\CampanhaReportAction::class,
+            'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
                     'id' => '\d+'

@@ -4,8 +4,9 @@ namespace EmailMarketing\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
-use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 use EmailMarketing\Domain\Entity\Contato;
+use EmailMarketing\Domain\Entity\Tag;
+use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
 
 class ContatoRepository extends EntityRepository implements ContatoRepositoryInterface
 {
@@ -35,6 +36,16 @@ class ContatoRepository extends EntityRepository implements ContatoRepositoryInt
     public function findByEmail($email): array
     {
         return $this->findBy(['email' => $email]);
+    }
+
+    public function findByTags(array $tags): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+                ->distinct()
+                ->leftJoin(Tag::class, 't')
+                ->andWhere('t.id IN (:tag_ids)')
+                ->setParameter('tag_ids', $tags );
+        return $queryBuilder->getQuery()->getResult();
     }
 
 }

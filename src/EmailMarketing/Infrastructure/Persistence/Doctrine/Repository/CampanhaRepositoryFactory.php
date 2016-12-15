@@ -1,5 +1,5 @@
 <?php
-declare(strinct_types = 1);
+declare(strict_types = 1);
 namespace EmailMarketing\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\ORM\EntityManager;

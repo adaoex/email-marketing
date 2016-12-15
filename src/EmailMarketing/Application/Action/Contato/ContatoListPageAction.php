@@ -17,7 +17,7 @@ class ContatoListPageAction
     private $repository;
 
     public function __construct(
-    ContatoRepositoryInterface $repository,
+            ContatoRepositoryInterface $repository,
             Template\TemplateRendererInterface $template
     ){
         $this->template = $template;

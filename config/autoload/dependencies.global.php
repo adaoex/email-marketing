@@ -13,7 +13,8 @@ use EmailMarketing\Domain\{
     Service\TagServiceInterface,
     Service\TagServiceFactory,
     Service\FlashMessageInterface,
-    Service\CampanhaEmailSenderInterface
+    Service\CampanhaEmailSenderInterface,
+    Service\CampanhaReportInterface
 };
 use EmailMarketing\Infrastructure\{
     Persistence\Doctrine\Repository\ClienteRepositoryFactory,
@@ -24,7 +25,8 @@ use EmailMarketing\Infrastructure\{
     Service\AuthServiceFactory,
     Service\FlashMessageFactory,
     Service\MailgunFactory,
-    Service\CampanhaEmailSenderFactory
+    Service\CampanhaEmailSenderFactory,
+    Service\CampanhaReportFactory
 };
 use Zend\{
     Authentication\AuthenticationService,
@@ -63,6 +65,7 @@ return [
             AuthInterface::class => AuthServiceFactory::class,
             \Mailgun\Mailgun::class => MailgunFactory::class,
             CampanhaEmailSenderInterface::class => CampanhaEmailSenderFactory::class,
+            CampanhaReportInterface::class => CampanhaReportFactory::class,
         ],
         'aliases' => [
             'Configuration' => 'config', //Doctrine needs a service called Configuration
