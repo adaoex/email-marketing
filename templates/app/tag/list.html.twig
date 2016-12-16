@@ -8,6 +8,18 @@
     Listagem de Tags
 {% endblock %}
 
+{% block form_busca %}
+<form action="#" method="get" class="sidebar-form">
+    <div class="input-group">
+        <input type="text" name="p" class="form-control" placeholder="Pesquisa...">
+        <span class="input-group-btn">
+        <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+        </button>
+        </span>
+    </div>
+</form>
+{% endblock %}
+
 {% block content %}
     <div class="row" >
         <div class="box" >
@@ -17,6 +29,7 @@
                     Novo
                 </a>
             </div>
+            
             <div class="box-body" >
                 <table class="table table-bordered" >
                     <thead>

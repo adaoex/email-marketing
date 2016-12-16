@@ -2,7 +2,7 @@
 
 namespace EmailMarketing\Domain\Persistence;
 
-interface TagRepositoryInterface extends RepositoryInterface
+interface TagRepositoryInterface extends RepositoryInterface, RepositoryCriteriaInterface
 {
 
 }

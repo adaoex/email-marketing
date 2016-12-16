@@ -1,40 +1,39 @@
 <?php
 
 use CodeEdu\FixtureFactory;
-use EmailMarketing\Domain\{
-    Persistence\ClienteRepositoryInterface,
-    Persistence\ContatoRepositoryInterface,
-    Persistence\EnderecoRepositoryInterface,
-    Persistence\TagRepositoryInterface,
-    Persistence\CampanhaRepositoryInterface,
-    Service\AuthInterface,
-    Service\ClienteServiceFactory,
-    Service\ClienteServiceInterface,
-    Service\TagServiceInterface,
-    Service\TagServiceFactory,
-    Service\FlashMessageInterface,
-    Service\CampanhaEmailSenderInterface,
-    Service\CampanhaReportInterface
-};
-use EmailMarketing\Infrastructure\{
-    Persistence\Doctrine\Repository\ClienteRepositoryFactory,
-    Persistence\Doctrine\Repository\ContatoRepositoryFactory,
-    Persistence\Doctrine\Repository\EnderecoRepositoryFactory,  
-    Persistence\Doctrine\Repository\TagRepositoryFactory,  
-    Persistence\Doctrine\Repository\CampanhaRepositoryFactory,  
-    Service\AuthServiceFactory,
-    Service\FlashMessageFactory,
-    Service\MailgunFactory,
-    Service\CampanhaEmailSenderFactory,
-    Service\CampanhaReportFactory
-};
-use Zend\{
-    Authentication\AuthenticationService,
-    Authentication\AuthenticationServiceInterface,
-    Expressive\Application,
-    Expressive\Container\ApplicationFactory,
-    Expressive\Helper
-};
+use EmailMarketing\Domain\Persistence\CampanhaRepositoryInterface;
+use EmailMarketing\Domain\Persistence\ClienteRepositoryInterface;
+use EmailMarketing\Domain\Persistence\ContatoRepositoryInterface;
+use EmailMarketing\Domain\Persistence\Criteria\FindByNameCriteriaInterface;
+use EmailMarketing\Domain\Persistence\EnderecoRepositoryInterface;
+use EmailMarketing\Domain\Persistence\TagRepositoryInterface;
+use EmailMarketing\Domain\Service\AuthInterface;
+use EmailMarketing\Domain\Service\CampanhaEmailSenderInterface;
+use EmailMarketing\Domain\Service\CampanhaReportInterface;
+use EmailMarketing\Domain\Service\ClienteServiceFactory;
+use EmailMarketing\Domain\Service\ClienteServiceInterface;
+use EmailMarketing\Domain\Service\FlashMessageInterface;
+use EmailMarketing\Domain\Service\TagServiceFactory;
+use EmailMarketing\Domain\Service\TagServiceInterface;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\CampanhaRepositoryFactory;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ClienteRepositoryFactory;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\ContatoRepositoryFactory;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\Criteria\FindByNameCriteria;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\EnderecoRepositoryFactory;
+use EmailMarketing\Infrastructure\Persistence\Doctrine\Repository\TagRepositoryFactory;
+use EmailMarketing\Infrastructure\Service\AuthServiceFactory;
+use EmailMarketing\Infrastructure\Service\CampanhaEmailSenderFactory;
+use EmailMarketing\Infrastructure\Service\CampanhaReportFactory;
+use EmailMarketing\Infrastructure\Service\FlashMessageFactory;
+use EmailMarketing\Infrastructure\Service\MailgunFactory;
+use Mailgun\Mailgun;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\AuthenticationServiceInterface;
+use Zend\Expressive\Application;
+use Zend\Expressive\Container\ApplicationFactory;
+use Zend\Expressive\Helper\ServerUrlHelper;
+use Zend\Expressive\Helper\UrlHelper;
+use Zend\Expressive\Helper\UrlHelperFactory;
 
 
 return [
@@ -47,12 +46,13 @@ return [
         // class name.
         'invokables' => [
             // Fully\Qualified\InterfaceName::class => Fully\Qualified\ClassName::class,
-            Helper\ServerUrlHelper::class => Helper\ServerUrlHelper::class,
+            ServerUrlHelper::class => ServerUrlHelper::class,
+            FindByNameCriteriaInterface::class => FindByNameCriteria::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
             Application::class => ApplicationFactory::class,
-            Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
+            UrlHelper::class => UrlHelperFactory::class,
             ClienteRepositoryInterface::class => ClienteRepositoryFactory::class,
             ClienteServiceInterface::class => ClienteServiceFactory::class,
             EnderecoRepositoryInterface::class => EnderecoRepositoryFactory::class,
@@ -63,7 +63,7 @@ return [
             FlashMessageInterface::class => FlashMessageFactory::class,
             'doctrine:fixtures_cmd:load'   => FixtureFactory::class,
             AuthInterface::class => AuthServiceFactory::class,
-            \Mailgun\Mailgun::class => MailgunFactory::class,
+            Mailgun::class => MailgunFactory::class,
             CampanhaEmailSenderInterface::class => CampanhaEmailSenderFactory::class,
             CampanhaReportInterface::class => CampanhaReportFactory::class,
         ],
